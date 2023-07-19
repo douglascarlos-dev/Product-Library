@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+CAUTION: Do not modify this file unless you know what you are doing.
+ Unexpected results may occur if the code is changed deliberately.
+-->
+<dbmodel pgmodeler-ver="0.9.4" use-changelog="false" last-position="0,0" last-zoom="1" max-obj-count="4"
+	 default-owner="postgres"
+	 layers="Default layer"
+	 active-layers="0"
+	 layer-name-colors="#000000"
+	 layer-rect-colors="#20e0cf"
+	 show-layer-names="false" show-layer-rects="false">
+<database name="library" is-template="false" allow-conns="true">
+</database>
+
+<schema name="public" layers="0" rect-visible="true" fill-color="#e1e1e1" sql-disabled="true">
+</schema>
+
+<sequence name="clientes_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="2147483647" cache="1">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<table name="products" layers="0" collapse-mode="2" max-obj-count="6" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="20" y="80"/>
+	<column name="id" not-null="true" sequence="public.clientes_id_seq">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="stock_keeping_unit" not-null="true">
+		<type name="character varying" length="100"/>
+	</column>
+	<column name="description">
+		<type name="character varying" length="100"/>
+	</column>
+	<column name="created" default-value="NOW()">
+		<type name="timestamptz" length="0"/>
+	</column>
+	<column name="updated">
+		<type name="timestamptz" length="0"/>
+	</column>
+	<constraint name="library_pk" type="pk-constr" table="public.products">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="stock_keeping_unit_unique" type="uq-constr" table="public.products">
+		<columns names="stock_keeping_unit" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<sequence name="users_id_seq" cycle="false" start="2" increment="1" min-value="1" max-value="2147483647" cache="1">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<table name="users" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="440" y="80"/>
+	<column name="id" not-null="true" sequence="public.users_id_seq">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="username">
+		<type name="character varying" length="100"/>
+	</column>
+	<column name="password">
+		<type name="character varying" length="255"/>
+	</column>
+	<constraint name="users_pk" type="pk-constr" table="public.users">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<initial-data>
+<![CDATA[id•username•password⸣
+1•admin•$2y$10$fwpKXPecTh6ThLcekkY2HuMeY5JkPiDDAbddzku0HAVDStpkd5TM6]]>
+	</initial-data>
+</table>
+
+<function name="products_insert_function"
+		window-func="false"
+		returns-setof="false"
+		behavior-type="CALLED ON NULL INPUT"
+		function-type="VOLATILE"
+		security-type="SECURITY INVOKER"
+		parallel-type="PARALLEL UNSAFE"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<language name="plpgsql"/>
+	<return-type>
+	<type name="integer" length="0"/>
+	</return-type>
+	<parameter name="stock_keeping_unit_">
+		<type name="character varying" length="0"/>
+	</parameter>
+	<parameter name="description_">
+		<type name="character varying" length="0"/>
+	</parameter>
+	<definition><![CDATA[DECLARE id_retorno integer;
+BEGIN
+
+INSERT INTO products(stock_keeping_unit, description) VALUES (stock_keeping_unit_, description_);
+
+SELECT id INTO id_retorno FROM products WHERE products.stock_keeping_unit=stock_keeping_unit_;
+
+RETURN id_retorno;
+
+END;
+]]></definition>
+</function>
+
+<function name="products_update_function"
+		window-func="false"
+		returns-setof="false"
+		behavior-type="CALLED ON NULL INPUT"
+		function-type="VOLATILE"
+		security-type="SECURITY INVOKER"
+		parallel-type="PARALLEL UNSAFE"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<language name="plpgsql"/>
+	<return-type>
+	<type name="integer" length="0"/>
+	</return-type>
+	<parameter name="stock_keeping_unit_">
+		<type name="character varying" length="0"/>
+	</parameter>
+	<parameter name="description_">
+		<type name="character varying" length="0"/>
+	</parameter>
+	<parameter name="updated_">
+		<type name="timestamptz" length="0"/>
+	</parameter>
+	<definition><![CDATA[DECLARE id_retorno integer;
+BEGIN
+
+UPDATE products SET description = description_, updated = updated_ WHERE stock_keeping_unit = stock_keeping_unit_;
+
+SELECT id INTO id_retorno FROM products WHERE products.stock_keeping_unit=stock_keeping_unit_;
+
+RETURN id_retorno;
+
+END;
+]]></definition>
+</function>
+
+<table name="photo" layers="0" collapse-mode="2" max-obj-count="7" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="480" y="240"/>
+	<column name="id" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="name" not-null="true">
+		<type name="character varying" length="100"/>
+	</column>
+	<column name="sequence">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="created" default-value="NOW()">
+		<type name="timestamptz" length="0"/>
+	</column>
+	<column name="updated">
+		<type name="timestamptz" length="0"/>
+	</column>
+	<constraint name="photo_pk" type="pk-constr" table="public.photo">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="name_unique" type="uq-constr" table="public.photo">
+		<columns names="name" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="id_products" index="1"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="products_fk" index="1"/>
+	</customidxs>
+</table>
+
+<relationship name="products_has_many_photo" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#c31318"
+	 src-table="public.products"
+	 dst-table="public.photo"
+	 src-required="false" dst-required="false"/>
+
+</dbmodel>
