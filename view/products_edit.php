@@ -58,6 +58,7 @@ function Mask($mask,$str){
       </div>
     </div>
 <button type="submit" class="btn btn-primary">Atualizar</button>
+<a class="btn btn-outline-primary" id="newPhoto" href="<?php echo URLROOT; ?>/photo/new/<?php echo $products->getStockKeepingUnit(); ?>" role="button">Adicionar foto</a>
 </form>
 </div>
 </div>
