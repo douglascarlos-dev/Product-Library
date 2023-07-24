@@ -40,7 +40,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="updated">
 		<type name="timestamptz" length="0"/>
 	</column>
-	<constraint name="library_pk" type="pk-constr" table="public.products">
+	<constraint name="products_pk" type="pk-constr" table="public.products">
 		<columns names="id" ref-type="src-columns"/>
 	</constraint>
 </table>
