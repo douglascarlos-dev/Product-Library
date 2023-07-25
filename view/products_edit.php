@@ -14,7 +14,7 @@
     }
 
     .thumbnail {
-        border-radius: 50%;
+        border-radius: 0%;
         display: block;
         padding: 2px;
         line-height: 1.42857143;
@@ -57,12 +57,49 @@ function Mask($mask,$str){
       <input type="text" class="form-control" id="inputDescricao" name="descricao" value="<?php echo $products->getDescription(); ?>" maxlength="100">
       </div>
     </div>
+
+<?php
+foreach($photo as &$photo_value):
+?>
+
+    <div class="form-row">
+        <div class="form-group col-md-1">
+        <br><br><a class="btn btn-danger" href="" role="button">Deletar</a>
+        </div>
+        <div class="form-group col-md-2">
+          <center><img src="<?php echo URLROOT; ?>/foto/<?php echo $products->getStockKeepingUnit(); ?>/<?php echo $photo_value->getName()."?t=".time(); ?>" alt="Image preview" class="thumbnail" width="120" height="120"></center>
+        </div>
+
+        <div class="form-group col-md-3">
+            <label for="inputSku">SKU</label>
+            <input type="text" class="form-control" id="inputSku" name="sku" value="<?php echo $products->getStockKeepingUnit(); ?>" maxlength="100" readonly>
+        </div>
+        <div class="form-group col-md-2">
+            <label for="inputSku">Data</label>
+            <input type="text" class="form-control" id="inputSku" name="sku" value="2023-07-23 22:03:11" maxlength="100" readonly>
+        </div>
+        <div class="form-group col-md-2">
+            <label for="inputSku">Resolução</label>
+            <input type="text" class="form-control" id="inputSku" name="sku" value="1200px 1200px" maxlength="100" readonly>
+        </div>
+        <div class="form-group col-md-2">
+            <label for="inputSku">Tamanho</label>
+            <input type="text" class="form-control" id="inputSku" name="sku" value="300kb" maxlength="100" readonly>
+        </div>
+
+    </div>
+
+<?php
+endforeach;
+?>
+
 <button type="submit" class="btn btn-primary">Atualizar</button>
 <a class="btn btn-outline-primary" id="newPhoto" href="<?php echo URLROOT; ?>/photo/new/<?php echo $products->getStockKeepingUnit(); ?>" role="button">Adicionar foto</a>
 </form>
 </div>
 </div>
 </div>
+
 <script type="text/javascript" src="<?php echo URLROOT; ?>/js/jquery-3.5.1.slim.min.js"></script>
 <script src="<?php echo URLROOT; ?>/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 </body>

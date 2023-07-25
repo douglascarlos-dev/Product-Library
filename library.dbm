@@ -184,4 +184,25 @@ END;
 	 dst-table="public.photo"
 	 src-required="false" dst-required="false"/>
 
+<view name="view_photo_products" layers="0" collapse-mode="2" max-obj-count="1" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="120" y="400"/>
+	<reference>
+		<expression><![CDATA[SELECT photo.id, photo."name" , photo."sequence", products.stock_keeping_unit FROM (photo JOIN products ON ((photo.id_products = products.id)));]]></expression>
+		<reftable name="public.products"/>
+		<reftable name="public.photo"/>
+	</reference>
+</view>
+
+<relationship name="rel_view_photo_customer_products" type="reltv" layers="0"
+	 src-table="public.view_photo_products"
+	 dst-table="public.products"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_view_photo_customer_photo" type="reltv" layers="0"
+	 src-table="public.view_photo_products"
+	 dst-table="public.photo"
+	 src-required="false" dst-required="false"/>
+
 </dbmodel>

@@ -1,13 +1,13 @@
 <?php
 include_once 'connection.php';
 
-class Address extends Connection {
+class Photo extends Connection {
     private $id;
     private $name;
     private $sequence;
     private $created;
     private $updated;
-    private $id_products;
+    private $stock_keeping_unit;
 
     public function setId($id){
         $this->id=$id;
@@ -29,8 +29,8 @@ class Address extends Connection {
         $this->updated=$updated;
         return $this;
     }
-    public function setIdProducts($id_products){
-        $this->id_products=$id_products;
+    public function setStockKeepingUnit($stock_keeping_unit){
+        $this->stock_keeping_unit=$stock_keeping_unit;
         return $this;
     }
 
@@ -49,8 +49,8 @@ class Address extends Connection {
     public function getUpdated(){
         return $this->updated;
     }
-    public function getIdProducts(){
-        return $this->id_products;
+    public function getStockKeepingUnit(){
+        return $this->stock_keeping_unit;
     }
 
     function photo_save(){
@@ -60,7 +60,7 @@ class Address extends Connection {
                             '" . $this->getSequence() . "',
                             '" . $this->getCreated() . "',
                             '" . $this->getUpdated() . "',
-                            '" . $this->getIdProducts() . "'
+                            '" . $this->getStockKeepingUnit() . "'
                         )";
         $pdo = $this->o_db;
         $stmt = $pdo->prepare($sql_query);
@@ -75,7 +75,7 @@ class Address extends Connection {
     }
 
     function photo_list(){
-        $sql_query = "SELECT * FROM view_photo_products WHERE id_products = '" . $this->getIdProducts() . "'";
+        $sql_query = "SELECT * FROM view_photo_products WHERE stock_keeping_unit = '" . $this->getStockKeepingUnit() . "'";
         $pdo = $this->o_db;
         $stmt = $pdo->prepare($sql_query);
         $array_photo= array();
