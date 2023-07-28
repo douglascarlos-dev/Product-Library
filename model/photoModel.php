@@ -58,9 +58,8 @@ class Photo extends Connection {
                         (
                             '" . $this->getName() . "',
                             '" . $this->getSequence() . "',
-                            '" . $this->getCreated() . "',
-                            '" . $this->getUpdated() . "',
-                            '" . $this->getStockKeepingUnit() . "'
+                            '" . $this->getStockKeepingUnit() . "',
+                            '" . $this->getCreated() . "'
                         )";
         $pdo = $this->o_db;
         $stmt = $pdo->prepare($sql_query);

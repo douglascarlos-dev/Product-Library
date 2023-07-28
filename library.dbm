@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
  Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.4" use-changelog="false" last-position="0,0" last-zoom="1" max-obj-count="4"
+<dbmodel pgmodeler-ver="0.9.4" use-changelog="false" last-position="0,63" last-zoom="1" max-obj-count="4"
 	 default-owner="postgres"
 	 layers="Default layer"
 	 active-layers="0"
@@ -155,7 +155,7 @@ END;
 	<column name="id" not-null="true" sequence="public.photo_id_seq">
 		<type name="integer" length="0"/>
 	</column>
-	<column name="name" not-null="true">
+	<column name="file_name" not-null="true">
 		<type name="character varying" length="100"/>
 	</column>
 	<column name="sequence">
@@ -180,7 +180,7 @@ END;
 		<columns names="id" ref-type="src-columns"/>
 	</constraint>
 	<constraint name="name_unique" type="uq-constr" table="public.photo">
-		<columns names="name" ref-type="src-columns"/>
+		<columns names="file_name" ref-type="src-columns"/>
 	</constraint>
 
 	<customidxs object-type="column">
@@ -206,7 +206,7 @@ END;
 	<role name="postgres"/>
 	<position x="120" y="400"/>
 	<reference>
-		<expression><![CDATA[SELECT photo.id, photo."name" , photo."sequence", products.stock_keeping_unit FROM (photo JOIN products ON ((photo.id_products = products.id)));]]></expression>
+		<expression><![CDATA[SELECT photo.id, photo."file_name" , photo."sequence", products.stock_keeping_unit FROM (photo JOIN products ON ((photo.id_products = products.id)));]]></expression>
 		<reftable name="public.products"/>
 		<reftable name="public.photo"/>
 	</reference>
@@ -221,5 +221,45 @@ END;
 	 src-table="public.view_photo_products"
 	 dst-table="public.photo"
 	 src-required="false" dst-required="false"/>
+
+<function name="photo_insert_function"
+		window-func="false"
+		returns-setof="false"
+		behavior-type="CALLED ON NULL INPUT"
+		function-type="VOLATILE"
+		security-type="SECURITY INVOKER"
+		parallel-type="PARALLEL UNSAFE"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<language name="plpgsql"/>
+	<return-type>
+	<type name="integer" length="0"/>
+	</return-type>
+	<parameter name="file_name_">
+		<type name="character varying" length="0"/>
+	</parameter>
+	<parameter name="sequence_">
+		<type name="integer" length="0"/>
+	</parameter>
+	<parameter name="stockkeepingunit_">
+		<type name="character varying" length="0"/>
+	</parameter>
+	<parameter name="created_">
+		<type name="timestamptz" length="0"/>
+	</parameter>
+	<definition><![CDATA[DECLARE id_produto integer;
+BEGIN
+
+SELECT id INTO id_produto FROM products WHERE products.stock_keeping_unit=stockkeepingunit_;
+
+INSERT INTO photo(file_name, sequence, created, id_products) VALUES (file_name_, sequence_, created_, id_produto);
+
+RETURN id_produto;
+
+END;
+]]></definition>
+</function>
 
 </dbmodel>
