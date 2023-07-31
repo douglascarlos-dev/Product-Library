@@ -3,7 +3,7 @@ include_once 'connection.php';
 
 class Photo extends Connection {
     private $id;
-    private $name;
+    private $file_name;
     private $sequence;
     private $created;
     private $updated;
@@ -13,8 +13,8 @@ class Photo extends Connection {
         $this->id=$id;
         return $this;
     }
-    public function setName($name){
-        $this->name=$name;
+    public function setFileName($file_name){
+        $this->file_name=$file_name;
         return $this;
     }
     public function setSequence($sequence){
@@ -22,6 +22,7 @@ class Photo extends Connection {
         return $this;
     }
     public function setCreated($created){
+        $created = date("d/m/Y H:i", strtotime($created));
         $this->created=$created;
         return $this;
     }
@@ -37,8 +38,8 @@ class Photo extends Connection {
     public function getId(){
         return $this->id;
     }
-    public function getName(){
-        return $this->name;
+    public function getFileName(){
+        return $this->file_name;
     }
     public function getSequence(){
         return $this->sequence;
@@ -56,10 +57,9 @@ class Photo extends Connection {
     function photo_save(){
          $sql_query = "SELECT * FROM photo_insert_function
                         (
-                            '" . $this->getName() . "',
+                            '" . $this->getFileName() . "',
                             '" . $this->getSequence() . "',
-                            '" . $this->getStockKeepingUnit() . "',
-                            '" . $this->getCreated() . "'
+                            '" . $this->getStockKeepingUnit() . "'
                         )";
         $pdo = $this->o_db;
         $stmt = $pdo->prepare($sql_query);
@@ -82,7 +82,7 @@ class Photo extends Connection {
         while($row = $stmt->fetch()){
             $the_photo = new Photo();
             $the_photo->setId($row[0]);
-            $the_photo->setName($row[1]);
+            $the_photo->setFileName($row[1]);
             $the_photo->setSequence($row[2]);
             array_push($array_photo, $the_photo);
         }
@@ -91,6 +91,42 @@ class Photo extends Connection {
 
     function post_photo_list(){
         $result = $this->photo_list();
+        return $result;
+    }
+
+    function post_photo_delete(){
+        $result = $this->photo_delete();
+        return $result;
+    }
+
+    function photo_delete(){
+        @unlink("foto/".$this->getStockKeepingUnit()."/".$this->getFileName());
+        //@rmdir("foto/".$this->getStockKeepingUnit());
+        $sql_query = "SELECT * FROM photo_delete
+                        (
+                            '" . $this->getFileName() . "'
+                        )";
+        $pdo = $this->o_db;
+        $stmt = $pdo->prepare($sql_query);
+        $stmt->execute(); 
+        $row = $stmt->fetchAll();
+        return $row;
+    }
+
+
+    function photo_next(){
+        //$sql_query = "SELECT * FROM view_photo_products WHERE stock_keeping_unit = '" . $this->getStockKeepingUnit() . "'";
+        //$sql_query = "SELECT ARRAY(SELECT sequence FROM public.view_photo_products WHERE stock_keeping_unit = '" . $this->getStockKeepingUnit() . "' ORDER BY sequence ASC) AS sequencia";
+        $pdo = $this->o_db;
+        $stmt = $pdo->prepare("SELECT ARRAY(SELECT sequence FROM public.view_photo_products WHERE stock_keeping_unit = '" . $this->getStockKeepingUnit() . "' ORDER BY sequence ASC) AS sequencia"); 
+        $stmt->execute(); 
+        $row = $stmt->fetch();
+        $resultado = $row[0];
+        return $resultado;
+    }
+
+    function post_photo_next(){
+        $result = $this->photo_next();
         return $result;
     }
 

@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
  Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.4" use-changelog="false" last-position="0,63" last-zoom="1" max-obj-count="4"
+<dbmodel pgmodeler-ver="0.9.4" use-changelog="false" last-position="0,58" last-zoom="1" max-obj-count="6"
 	 default-owner="postgres"
 	 layers="Default layer"
 	 active-layers="0"
@@ -24,7 +24,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="products" layers="0" collapse-mode="2" max-obj-count="6" z-value="0">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="20" y="80"/>
+	<position x="40" y="80"/>
 	<column name="id" not-null="true" sequence="public.clientes_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -53,7 +53,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="users" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="460" y="120"/>
+	<position x="480" y="120"/>
 	<column name="id" not-null="true" sequence="public.users_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -151,7 +151,7 @@ END;
 <table name="photo" layers="0" collapse-mode="2" max-obj-count="10" z-value="0">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="440" y="300"/>
+	<position x="460" y="300"/>
 	<column name="id" not-null="true" sequence="public.photo_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -204,7 +204,7 @@ END;
 <view name="view_photo_products" layers="0" collapse-mode="2" max-obj-count="1" z-value="0">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="120" y="400"/>
+	<position x="140" y="400"/>
 	<reference>
 		<expression><![CDATA[SELECT photo.id, photo."file_name" , photo."sequence", products.stock_keeping_unit FROM (photo JOIN products ON ((photo.id_products = products.id)));]]></expression>
 		<reftable name="public.products"/>
@@ -246,15 +246,82 @@ END;
 	<parameter name="stockkeepingunit_">
 		<type name="character varying" length="0"/>
 	</parameter>
-	<parameter name="created_">
-		<type name="timestamptz" length="0"/>
-	</parameter>
 	<definition><![CDATA[DECLARE id_produto integer;
 BEGIN
 
 SELECT id INTO id_produto FROM products WHERE products.stock_keeping_unit=stockkeepingunit_;
 
-INSERT INTO photo(file_name, sequence, created, id_products) VALUES (file_name_, sequence_, created_, id_produto);
+INSERT INTO photo(file_name, sequence, id_products) VALUES (file_name_, sequence_, id_produto);
+
+RETURN id_produto;
+
+END;
+]]></definition>
+</function>
+
+<usertype name="phone_type" configuration="enumeration">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<enumeration label="Casa"/>
+	<enumeration label="Celular"/>
+	<enumeration label="Recado"/>
+	<enumeration label="Trabalho"/>
+</usertype>
+
+<function name="photo_delete"
+		window-func="false"
+		returns-setof="false"
+		behavior-type="CALLED ON NULL INPUT"
+		function-type="VOLATILE"
+		security-type="SECURITY INVOKER"
+		parallel-type="PARALLEL UNSAFE"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<language name="plpgsql"/>
+	<return-type>
+	<type name="integer" length="0"/>
+	</return-type>
+	<parameter name="file_name_">
+		<type name="character varying" length="0"/>
+	</parameter>
+	<definition><![CDATA[DECLARE id_retorno integer;
+BEGIN
+
+SELECT id_products INTO id_retorno FROM photo WHERE photo.file_name=file_name_;
+
+DELETE FROM photo WHERE photo.file_name=file_name_;
+
+RETURN id_retorno;
+
+END;]]></definition>
+</function>
+
+<function name="photo_next"
+		window-func="false"
+		returns-setof="false"
+		behavior-type="CALLED ON NULL INPUT"
+		function-type="VOLATILE"
+		security-type="SECURITY INVOKER"
+		parallel-type="PARALLEL UNSAFE"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<language name="plpgsql"/>
+	<return-type>
+	<parameter name="new_object">
+		<type name="character varying" length="0"/>
+	</parameter>
+	</return-type>
+	<parameter name="stockkeepingunit_">
+		<type name="character varying" length="0"/>
+	</parameter>
+	<definition><![CDATA[DECLARE id_produto character varying;
+BEGIN
+
+SELECT ARRAY(SELECT "sequence" FROM view_photo_products WHERE view_photo_products.stock_keeping_unit=stockkeepingunit_ ORDER BY "sequence" ASC) AS sequencia INTO id_produto;
 
 RETURN id_produto;
 

@@ -64,10 +64,10 @@ foreach($photo as &$photo_value):
 
     <div class="form-row">
         <div class="form-group col-md-1">
-        <br><br><a class="btn btn-danger" href="" role="button">Deletar</a>
+        <br><br><a class="btn btn-danger" href="<?php echo URLROOT; ?>/photo/delete/<?php echo $products->getStockKeepingUnit(); ?>/<?php echo $photo_value->getFileName(); ?>" role="button">Deletar</a>
         </div>
         <div class="form-group col-md-2">
-          <center><img src="<?php echo URLROOT; ?>/foto/<?php echo $products->getStockKeepingUnit(); ?>/<?php echo $photo_value->getName()."?t=".time(); ?>" alt="Image preview" class="thumbnail" width="120" height="120"></center>
+          <center><img src="<?php echo URLROOT; ?>/foto/<?php echo $products->getStockKeepingUnit(); ?>/<?php echo $photo_value->getFileName()."?t=".time(); ?>" alt="Image preview" class="thumbnail" width="120" height="120"></center>
         </div>
 
         <div class="form-group col-md-3">
