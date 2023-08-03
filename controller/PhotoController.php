@@ -77,8 +77,23 @@ class PhotoController {
 
                 imagejpeg($image_p, "foto/".$stock_keeping_unit."/".$file_name_2, 100);
 */
+                $width = 240;
+                $height = 240;
+                list($width_orig, $height_orig) = getimagesize($filename);
+                $ratio_orig = $width_orig/$height_orig;
+                if ($width/$height > $ratio_orig) {
+                    $width = $height*$ratio_orig;
+                } else {
+                    $height = $width/$ratio_orig;
+                }
+                $image_p = imagecreatetruecolor($width, $height);
+                $file_name_3 = $stock_keeping_unit."_thumbnail_".$seq.".jpg";
+                $image = imagecreatefromjpeg($filename);
+                imagecopyresampled($image_p, $image, 0, 0, 0, 0, $width, $height, $width_orig, $height_orig);
+                imagejpeg($image_p, "foto/".$stock_keeping_unit."/".$file_name_3, 100);
 
                 $photo->setFileName($file_name_2);
+                $photo->setFileNameThumbnail($file_name_3);
                 $photo->setSequence($seq);
                 $photo->post_photo_save();
                 ProductsController::edit($photo->getStockKeepingUnit());

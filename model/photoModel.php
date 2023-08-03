@@ -4,6 +4,7 @@ include_once 'connection.php';
 class Photo extends Connection {
     private $id;
     private $file_name;
+    private $file_name_thumbnail;
     private $sequence;
     private $created;
     private $updated;
@@ -15,6 +16,10 @@ class Photo extends Connection {
     }
     public function setFileName($file_name){
         $this->file_name=$file_name;
+        return $this;
+    }
+    public function setFileNameThumbnail($file_name_thumbnail){
+        $this->file_name_thumbnail=$file_name_thumbnail;
         return $this;
     }
     public function setSequence($sequence){
@@ -41,6 +46,9 @@ class Photo extends Connection {
     public function getFileName(){
         return $this->file_name;
     }
+    public function getFileNameThumbnail(){
+        return $this->file_name_thumbnail;
+    }
     public function getSequence(){
         return $this->sequence;
     }
@@ -59,7 +67,8 @@ class Photo extends Connection {
                         (
                             '" . $this->getFileName() . "',
                             '" . $this->getSequence() . "',
-                            '" . $this->getStockKeepingUnit() . "'
+                            '" . $this->getStockKeepingUnit() . "',
+                            '" . $this->getFileNameThumbnail() . "'
                         )";
         $pdo = $this->o_db;
         $stmt = $pdo->prepare($sql_query);
@@ -84,6 +93,7 @@ class Photo extends Connection {
             $the_photo->setId($row[0]);
             $the_photo->setFileName($row[1]);
             $the_photo->setSequence($row[2]);
+            $the_photo->setFileNameThumbnail($row[4]);
             array_push($array_photo, $the_photo);
         }
         return $array_photo;
@@ -101,6 +111,7 @@ class Photo extends Connection {
 
     function photo_delete(){
         @unlink("foto/".$this->getStockKeepingUnit()."/".$this->getFileName());
+        unlink("foto/".$this->getStockKeepingUnit()."/".$this->getFileNameThumbnail());
         //@rmdir("foto/".$this->getStockKeepingUnit());
         $sql_query = "SELECT * FROM photo_delete
                         (
