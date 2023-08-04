@@ -110,8 +110,15 @@ class Photo extends Connection {
     }
 
     function photo_delete(){
+
+        $pdo = $this->o_db;
+        $stmt = $pdo->prepare("SELECT file_name_thumbnail  FROM public.view_photo_products WHERE file_name = '" . $this->getFileName() . "'");
+        $stmt->execute(); 
+        $row = $stmt->fetch();
+        $thumbnail = $row[0];
+
         @unlink("foto/".$this->getStockKeepingUnit()."/".$this->getFileName());
-        unlink("foto/".$this->getStockKeepingUnit()."/".$this->getFileNameThumbnail());
+        @unlink("foto/".$this->getStockKeepingUnit()."/".$thumbnail);
         //@rmdir("foto/".$this->getStockKeepingUnit());
         $sql_query = "SELECT * FROM photo_delete
                         (
@@ -126,8 +133,6 @@ class Photo extends Connection {
 
 
     function photo_next(){
-        //$sql_query = "SELECT * FROM view_photo_products WHERE stock_keeping_unit = '" . $this->getStockKeepingUnit() . "'";
-        //$sql_query = "SELECT ARRAY(SELECT sequence FROM public.view_photo_products WHERE stock_keeping_unit = '" . $this->getStockKeepingUnit() . "' ORDER BY sequence ASC) AS sequencia";
         $pdo = $this->o_db;
         $stmt = $pdo->prepare("SELECT ARRAY(SELECT sequence FROM public.view_photo_products WHERE stock_keeping_unit = '" . $this->getStockKeepingUnit() . "' ORDER BY sequence ASC) AS sequencia"); 
         $stmt->execute(); 
