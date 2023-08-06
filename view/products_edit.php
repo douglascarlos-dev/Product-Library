@@ -49,11 +49,11 @@ function Mask($mask,$str){
 <form action="<?php echo URLROOT; ?>/products/update/<?php echo $products->getStockKeepingUnit(); ?>" method="post">
   <div class="form-row">
     <div class="form-group col-md-6">
-      <label for="inputSku">SKU</label>
+      <label for="inputSku">Stock Keeping Unit</label>
       <input type="text" class="form-control" id="inputSku" name="sku" value="<?php echo $products->getStockKeepingUnit(); ?>" maxlength="100" readonly>
     </div>
     <div class="form-group col-md-6">
-      <label for="inputSku">SKU</label>
+      <label for="inputSku">Descrição/Nome do produto</label>
       <input type="text" class="form-control" id="inputDescricao" name="descricao" value="<?php echo $products->getDescription(); ?>" maxlength="100">
       </div>
     </div>
@@ -67,12 +67,16 @@ foreach($photo as &$photo_value):
         <br><br><a class="btn btn-danger" href="<?php echo URLROOT; ?>/photo/delete/<?php echo $products->getStockKeepingUnit(); ?>/<?php echo $photo_value->getFileName(); ?>" role="button">Deletar</a>
         </div>
         <div class="form-group col-md-2">
-          <center><img src="<?php echo URLROOT; ?>/foto/<?php echo $products->getStockKeepingUnit(); ?>/<?php echo $photo_value->getFileNameThumbnail()."?t=".time(); ?>" alt="Image preview" class="thumbnail" width="120" height="120"></center>
+          <center><a href="<?php echo URLROOT; ?>/foto/<?php echo $products->getStockKeepingUnit(); ?>/<?php echo $photo_value->getFileName()."?t=".time(); ?>" target="_blank"><img src="<?php echo URLROOT; ?>/foto/<?php echo $products->getStockKeepingUnit(); ?>/<?php echo $photo_value->getFileNameThumbnail()."?t=".time(); ?>" alt="Image preview" class="thumbnail" width="120" height="120"></a></center>
         </div>
 
-        <div class="form-group col-md-3">
-            <label for="inputSku">SKU</label>
-            <input type="text" class="form-control" id="inputSku" name="sku" value="<?php echo $products->getStockKeepingUnit(); ?>" maxlength="100" readonly>
+        <div class="form-group col-md-2">
+            <label for="inputSku">Nome do arquivo</label>
+            <input type="text" class="form-control" id="inputSku" name="sku" value="<?php echo $photo_value->getFileName(); ?>" maxlength="100" readonly>
+        </div>
+        <div class="form-group col-md-1">
+            <label for="inputSequence">Sequência</label>
+            <input type="text" class="form-control" id="inputSequence" name="sequence" value="<?php echo $photo_value->getSequence(); ?>" maxlength="100" readonly>
         </div>
         <div class="form-group col-md-2">
             <label for="inputSku">Data</label>
@@ -94,7 +98,8 @@ endforeach;
 ?>
 
 <button type="submit" class="btn btn-primary">Atualizar</button>
-<a class="btn btn-outline-primary" id="newPhoto" href="<?php echo URLROOT; ?>/photo/new/<?php echo $products->getStockKeepingUnit(); ?>" role="button">Adicionar foto</a>
+<a class="btn btn-outline-primary" id="newPhoto" href="<?php echo URLROOT; ?>/photo/new/<?php echo $products->getStockKeepingUnit(); ?>" role="button">Adicionar foto 📸</a>
+<a class="btn btn-outline-primary" id="newPhoto" href="<?php echo URLROOT; ?>/photo/new/<?php echo $products->getStockKeepingUnit(); ?>" role="button">Adicionar vídeo 📹</a>
 </form>
 </div>
 </div>

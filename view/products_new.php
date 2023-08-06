@@ -36,7 +36,7 @@
                         <input type="text" class="form-control" id="inputSku" name="sku" maxlength="100" autofocus>
                     </div>
                     <div class="form-group col-md-8">
-                        <label for="inputDescricao">Descrição</label>
+                        <label for="inputDescricao">Descrição/Nome do produto</label>
                         <input type="text" class="form-control" id="inputDescricao" name="descricao" maxlength="100">
                     </div>
                 </div>
