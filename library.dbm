@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
  Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.4" use-changelog="false" last-position="0,0" last-zoom="1" max-obj-count="6"
+<dbmodel pgmodeler-ver="0.9.4" use-changelog="false" last-position="0,0" last-zoom="1" max-obj-count="7"
 	 default-owner="postgres"
 	 layers="Default layer"
 	 active-layers="0"
@@ -151,7 +151,7 @@ END;
 <table name="photo" layers="0" collapse-mode="2" max-obj-count="12" z-value="0">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="460" y="300"/>
+	<position x="720" y="300"/>
 	<column name="id" not-null="true" sequence="public.photo_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -207,7 +207,7 @@ END;
 <view name="view_photo_products" layers="0" collapse-mode="2" max-obj-count="1" z-value="0">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="140" y="400"/>
+	<position x="320" y="340"/>
 	<reference>
 		<expression><![CDATA[SELECT photo.id, photo."file_name" , photo."sequence", products.stock_keeping_unit, photo.file_name_thumbnail FROM (photo JOIN products ON ((photo.id_products = products.id)));]]></expression>
 		<reftable name="public.products"/>
@@ -218,12 +218,20 @@ END;
 <relationship name="rel_view_photo_customer_products" type="reltv" layers="0"
 	 src-table="public.view_photo_products"
 	 dst-table="public.products"
-	 src-required="false" dst-required="false"/>
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="9.79158" y="-19.8017"/>
+	</label>
+</relationship>
 
 <relationship name="rel_view_photo_customer_photo" type="reltv" layers="0"
 	 src-table="public.view_photo_products"
 	 dst-table="public.photo"
-	 src-required="false" dst-required="false"/>
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="-28.0574" y="26.9832"/>
+	</label>
+</relationship>
 
 <function name="photo_insert_function"
 		window-func="false"
@@ -330,6 +338,123 @@ BEGIN
 SELECT ARRAY(SELECT "sequence" FROM view_photo_products WHERE view_photo_products.stock_keeping_unit=stockkeepingunit_ ORDER BY "sequence" ASC) AS sequencia INTO id_produto;
 
 RETURN id_produto;
+
+END;
+]]></definition>
+</function>
+
+<sequence name="video_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="2147483647" cache="1">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<table name="video" layers="0" collapse-mode="2" max-obj-count="16" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="40" y="440"/>
+	<column name="id" not-null="true" sequence="public.video_id_seq">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="file_name" not-null="true">
+		<type name="character varying" length="100"/>
+	</column>
+	<column name="file_name_thumbnail">
+		<type name="character varying" length="100"/>
+	</column>
+	<column name="sequence">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="width">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="height">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="size">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="length">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="video_frame_rate">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="pixel_aspect_ratio">
+		<type name="character varying" length="10"/>
+	</column>
+	<column name="tag_title">
+		<type name="character varying" length="100"/>
+	</column>
+	<column name="created" default-value="NOW()">
+		<type name="timestamptz" length="0"/>
+	</column>
+	<column name="updated">
+		<type name="timestamptz" length="0"/>
+	</column>
+	<constraint name="video_pk" type="pk-constr" table="public.video">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="name_unique_1" type="uq-constr" table="public.video">
+		<columns names="file_name" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="id_products" index="13"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="products_fk" index="2"/>
+	</customidxs>
+</table>
+
+<relationship name="products_has_many_video" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#a64f84"
+	 src-table="public.products"
+	 dst-table="public.video"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="-10.2929" y="29.2677"/>
+	</label>
+</relationship>
+
+<function name="video_insert_function"
+		window-func="false"
+		returns-setof="false"
+		behavior-type="CALLED ON NULL INPUT"
+		function-type="VOLATILE"
+		security-type="SECURITY INVOKER"
+		parallel-type="PARALLEL UNSAFE"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<language name="plpgsql"/>
+	<return-type>
+	<type name="integer" length="0"/>
+	</return-type>
+	<parameter name="file_name_">
+		<type name="character varying" length="0"/>
+	</parameter>
+	<parameter name="sequence_">
+		<type name="integer" length="0"/>
+	</parameter>
+	<parameter name="stockkeepingunit_">
+		<type name="character varying" length="0"/>
+	</parameter>
+	<parameter name="file_name_thumbnail_">
+		<type name="character varying" length="0"/>
+	</parameter>
+	<definition><![CDATA[DECLARE id_video integer;
+BEGIN
+
+SELECT id INTO id_produto FROM products WHERE products.stock_keeping_unit=stockkeepingunit_;
+
+INSERT INTO video(file_name, sequence, id_products, file_name_thumbnail) VALUES (file_name_, sequence_, id_produto, file_name_thumbnail_);
+
+RETURN id_video;
 
 END;
 ]]></definition>
