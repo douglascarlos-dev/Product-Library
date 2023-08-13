@@ -2,6 +2,7 @@
 
 require_once 'model/productsModel.php';
 require_once 'model/photoModel.php';
+require_once 'model/videoModel.php';
 
 class ProductsController {
 
@@ -29,6 +30,9 @@ class ProductsController {
         $photo = new Photo();
         $photo->setStockKeepingUnit($stock_keeping_unit);
         $photo = $photo->post_photo_list();
+        $video = new Video();
+        $video->setStockKeepingUnit($stock_keeping_unit);
+        $video = $video->post_video_list();
         require_once 'view/products_edit.php';
     }
 
@@ -40,5 +44,12 @@ class ProductsController {
         ProductsController::edit($products->getStockKeepingUnit());
     }
 
+    public function delete( $stock_keeping_unit ){
+        $products = new Products();
+        $products->setStockKeepingUnit($stock_keeping_unit);
+        $products = $products->products_list();
+        $products->post_products_delete();
+        ProductsController::visualizar();
+    }
 
 }

@@ -69,7 +69,6 @@ foreach($photo as &$photo_value):
         <div class="form-group col-md-2">
           <center><a href="<?php echo URLROOT; ?>/foto/<?php echo $products->getStockKeepingUnit(); ?>/<?php echo $photo_value->getFileName()."?t=".time(); ?>" target="_blank"><img src="<?php echo URLROOT; ?>/foto/<?php echo $products->getStockKeepingUnit(); ?>/<?php echo $photo_value->getFileNameThumbnail()."?t=".time(); ?>" alt="Image preview" class="thumbnail" width="120" height="120"></a></center>
         </div>
-
         <div class="form-group col-md-2">
             <label for="inputSku">Nome do arquivo</label>
             <input type="text" class="form-control" id="inputSku" name="sku" value="<?php echo $photo_value->getFileName(); ?>" maxlength="100" readonly>
@@ -90,7 +89,43 @@ foreach($photo as &$photo_value):
             <label for="inputSku">Tamanho</label>
             <input type="text" class="form-control" id="inputSku" name="sku" value="300kb" maxlength="100" readonly>
         </div>
+    </div>
 
+<?php
+endforeach;
+?>
+
+<?php
+foreach($video as &$video_value):
+?>
+
+    <div class="form-row">
+        <div class="form-group col-md-1">
+        <br><br><a class="btn btn-danger" href="<?php echo URLROOT; ?>/video/delete/<?php echo $products->getStockKeepingUnit(); ?>/<?php echo $video_value->getFileName(); ?>" role="button">Deletar</a>
+        </div>
+        <div class="form-group col-md-2">
+          <center><a href="<?php echo URLROOT; ?>/video/<?php echo $video_value->getFileName()."?t=".time(); ?>" target="_blank"><img src="<?php echo URLROOT; ?>/video/<?php echo $video_value->getFileNameThumbnail()."?t=".time(); ?>" alt="Image preview" class="thumbnail" width="120" height="120"></a></center>
+        </div>
+        <div class="form-group col-md-2">
+            <label for="inputSku">Nome do arquivo</label>
+            <input type="text" class="form-control" id="inputSku" name="sku" value="<?php echo $video_value->getFileName(); ?>" maxlength="100" readonly>
+        </div>
+        <div class="form-group col-md-1">
+            <label for="inputSequence">Sequência</label>
+            <input type="text" class="form-control" id="inputSequence" name="sequence" value="<?php echo $video_value->getSequence(); ?>" maxlength="100" readonly>
+        </div>
+        <div class="form-group col-md-2">
+            <label for="inputSku">Data</label>
+            <input type="text" class="form-control" id="inputSku" name="sku" value="2023-07-23 22:03:11" maxlength="100" readonly>
+        </div>
+        <div class="form-group col-md-2">
+            <label for="inputSku">Resolução</label>
+            <input type="text" class="form-control" id="inputSku" name="sku" value="240p (240 x 240)" maxlength="100" readonly>
+        </div>
+        <div class="form-group col-md-2">
+            <label for="inputSku">Tamanho</label>
+            <input type="text" class="form-control" id="inputSku" name="sku" value="300kb" maxlength="100" readonly>
+        </div>
     </div>
 
 <?php
@@ -99,7 +134,8 @@ endforeach;
 
 <button type="submit" class="btn btn-primary">Atualizar</button>
 <a class="btn btn-outline-primary" id="newPhoto" href="<?php echo URLROOT; ?>/photo/new/<?php echo $products->getStockKeepingUnit(); ?>" role="button">Adicionar foto 📸</a>
-<a class="btn btn-outline-primary" id="newPhoto" href="<?php echo URLROOT; ?>/photo/new/<?php echo $products->getStockKeepingUnit(); ?>" role="button">Adicionar vídeo 📹</a>
+<a class="btn btn-outline-primary" id="newVideo" href="<?php echo URLROOT; ?>/video/new/<?php echo $products->getStockKeepingUnit(); ?>" role="button">Adicionar vídeo 📹</a>
+<a class="btn btn-danger" href="<?php echo URLROOT; ?>/photo/delete/<?php echo $products->getStockKeepingUnit(); ?>" role="button">Deletar</a>
 </form>
 </div>
 </div>

@@ -1,7 +1,8 @@
 <?php
 
-require_once 'model/VideoModel.php';
+require_once 'model/videoModel.php';
 require_once 'controller/ProductsController.php';
+require 'vendor/autoload.php';
 
 class VideoController {
 
@@ -39,11 +40,11 @@ class VideoController {
             if(in_array($file_ext,$extensions)=== false){
                 $errors[]="extension not allowed, please choose a MP4 file.";
             }
-            if($file_size > 2097152){
-                $errors[]='File size must be excately 2 MB';
+            if($file_size > 20485760){
+                $errors[]='File size must be excately 10 MB';
             }
             if(empty($errors)==true){
-                @mkdir("video/".$stock_keeping_unit, 0777, true);
+                //@mkdir("video/".$stock_keeping_unit, 0777, true);
                 move_uploaded_file($file_tmp,"video/".$file_name_2);
                 /*
                 if($file_type == "image/png"){
@@ -96,9 +97,26 @@ class VideoController {
 */
 
                 $video->setFileName($file_name_2);
-                $video->setFileNameThumbnail($file_name_3);
+                $video->setFileNameThumbnail($stock_keeping_unit.'_'.$seq.'.jpg');
                 $video->setSequence($seq);
                 $video->post_video_save();
+
+                $ffmpeg = FFMpeg\FFMpeg::create();
+                $video_FFMpeg = $ffmpeg->open('/var/www/html/Product-Library/video/'.$file_name_2);
+                $video_FFMpeg
+                    ->filters()
+                    ->resize(new FFMpeg\Coordinate\Dimension(240, 240))
+                    ->synchronize();
+                $video_FFMpeg
+                    ->frame(FFMpeg\Coordinate\TimeCode::fromSeconds(10))
+                    ->save('/var/www/html/Product-Library/video/'.$stock_keeping_unit.'_'.$seq.'.jpg');
+                $video_FFMpeg
+                    ->addFilter(new \FFMpeg\Filters\Audio\SimpleFilter(['-an']))
+                    ->save(new FFMpeg\Format\Video\X264(), '/var/www/html/Product-Library/video/export-x264.mp4');
+
+                    unlink("video/".$file_name_2);
+                    rename("video/export-x264.mp4", "video/".$file_name_2);
+
                 ProductsController::edit($video->getStockKeepingUnit());
             }else{
                 ProductsController::edit($video->getStockKeepingUnit());
