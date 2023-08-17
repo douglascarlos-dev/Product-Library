@@ -95,6 +95,7 @@ class PhotoController {
                 $photo->setFileName($file_name_2);
                 $photo->setFileNameThumbnail($file_name_3);
                 $photo->setSequence($seq);
+                $photo->setSize($file_size);
                 $photo->post_photo_save();
                 ProductsController::edit($photo->getStockKeepingUnit());
             }else{

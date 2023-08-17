@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
  Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.4" use-changelog="false" last-position="0,360" last-zoom="1" max-obj-count="8"
+<dbmodel pgmodeler-ver="0.9.4" use-changelog="false" last-position="0,0" last-zoom="1" max-obj-count="8"
 	 default-owner="postgres"
 	 layers="Default layer"
 	 active-layers="0"
@@ -209,7 +209,7 @@ END;
 	<role name="postgres"/>
 	<position x="320" y="320"/>
 	<reference>
-		<expression><![CDATA[SELECT photo.id, photo."file_name" , photo."sequence", products.stock_keeping_unit, photo.file_name_thumbnail FROM (photo JOIN products ON ((photo.id_products = products.id)));]]></expression>
+		<expression><![CDATA[SELECT photo.id, photo."file_name" , photo."sequence", products.stock_keeping_unit, photo.file_name_thumbnail, photo.size FROM (photo JOIN products ON ((photo.id_products = products.id)));]]></expression>
 		<reftable name="public.products"/>
 		<reftable name="public.photo"/>
 	</reference>
@@ -254,6 +254,9 @@ END;
 	<parameter name="sequence_">
 		<type name="integer" length="0"/>
 	</parameter>
+	<parameter name="size_">
+		<type name="integer" length="0"/>
+	</parameter>
 	<parameter name="stockkeepingunit_">
 		<type name="character varying" length="0"/>
 	</parameter>
@@ -265,7 +268,7 @@ BEGIN
 
 SELECT id INTO id_produto FROM products WHERE products.stock_keeping_unit=stockkeepingunit_;
 
-INSERT INTO photo(file_name, sequence, id_products, file_name_thumbnail) VALUES (file_name_, sequence_, id_produto, file_name_thumbnail_);
+INSERT INTO photo(file_name, sequence, id_products, file_name_thumbnail, size) VALUES (file_name_, sequence_, id_produto, file_name_thumbnail_, size_);
 
 RETURN id_produto;
 
