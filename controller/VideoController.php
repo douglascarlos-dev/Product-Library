@@ -102,17 +102,17 @@ class VideoController {
                 $video->post_video_save();
 
                 $ffmpeg = FFMpeg\FFMpeg::create();
-                $video_FFMpeg = $ffmpeg->open('/var/www/html/Product-Library/video/'.$file_name_2);
+                $video_FFMpeg = $ffmpeg->open('video/'.$file_name_2);
                 $video_FFMpeg
                     ->filters()
                     ->resize(new FFMpeg\Coordinate\Dimension(240, 240))
                     ->synchronize();
                 $video_FFMpeg
                     ->frame(FFMpeg\Coordinate\TimeCode::fromSeconds(10))
-                    ->save('/var/www/html/Product-Library/video/'.$stock_keeping_unit.'_'.$seq.'.jpg');
+                    ->save('video/'.$stock_keeping_unit.'_'.$seq.'.jpg');
                 $video_FFMpeg
                     ->addFilter(new \FFMpeg\Filters\Audio\SimpleFilter(['-an']))
-                    ->save(new FFMpeg\Format\Video\X264(), '/var/www/html/Product-Library/video/export-x264.mp4');
+                    ->save(new FFMpeg\Format\Video\X264(), 'video/export-x264.mp4');
 
                     unlink("video/".$file_name_2);
                     rename("video/export-x264.mp4", "video/".$file_name_2);
