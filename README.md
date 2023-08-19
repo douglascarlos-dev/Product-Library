@@ -2,7 +2,7 @@
 
 ### Biblioteca de imagens, vídeos e PDF para e-commerce.
 
-Ao cadastrar um produto é possível fazer a gestão de várias fotos/vídeos/pdf de um produto, seu tamanho, dimensões e data de atualização.
+Com o Product Library além de cadastrar as imagens do seu produto é possível cadastrar vídeos e pdf. Ao carregar os arquivos é coletado o seu tamanho, dimensões, data de atualização e outras informações.
 
 ```shell
 # Diretórios, com seus subdiretórios e arquivos
@@ -19,8 +19,8 @@ Ao cadastrar um produto é possível fazer a gestão de várias fotos/vídeos/pd
               ├── video
               |    ├── sku_1.mp4
               |    ├── sku_2.mp4
-              |    ├── sku_3.mp4
-              |    └── sku_4.mp4
+              |    ├── sku_1.mp4
+              |    └── sku_2.mp4
               └── pdf
                    ├── nomeDoArquivo.pdf
                    ├── nomeDoArquivo.pdf
