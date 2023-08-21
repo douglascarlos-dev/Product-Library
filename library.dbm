@@ -53,7 +53,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="users" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="480" y="120"/>
+	<position x="420" y="80"/>
 	<column name="id" not-null="true" sequence="public.users_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -151,7 +151,7 @@ END;
 <table name="photo" layers="0" collapse-mode="2" max-obj-count="12" z-value="0">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="720" y="300"/>
+	<position x="720" y="80"/>
 	<column name="id" not-null="true" sequence="public.photo_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -207,9 +207,9 @@ END;
 <view name="view_photo_products" layers="0" collapse-mode="2" max-obj-count="1" z-value="0">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="320" y="320"/>
+	<position x="400" y="260"/>
 	<reference>
-		<expression><![CDATA[SELECT photo.id, photo."file_name" , photo."sequence", products.stock_keeping_unit, photo.file_name_thumbnail, photo.size FROM (photo JOIN products ON ((photo.id_products = products.id)));]]></expression>
+		<expression><![CDATA[SELECT photo.id, photo."file_name" , photo."sequence", products.stock_keeping_unit, photo.file_name_thumbnail, photo.size, photo.created FROM (photo JOIN products ON ((photo.id_products = products.id)));]]></expression>
 		<reftable name="public.products"/>
 		<reftable name="public.photo"/>
 	</reference>
@@ -466,7 +466,7 @@ END;
 <view name="view_video_products" layers="0" collapse-mode="2" max-obj-count="1" z-value="0">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="540" y="620"/>
+	<position x="100" y="300"/>
 	<reference>
 		<expression><![CDATA[SELECT video.id, video."file_name" , video."sequence", products.stock_keeping_unit, video.file_name_thumbnail FROM (video JOIN products ON ((video.id_products = products.id)));]]></expression>
 		<reftable name="public.products"/>

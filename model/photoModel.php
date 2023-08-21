@@ -58,7 +58,8 @@ class Photo extends Connection {
         return $this->sequence;
     }
     public function getSize(){
-        return $this->convertToReadableSize($this->size);
+        //return $this->convertToReadableSize($this->size);
+        return $this->size;
     }
     public function getCreated(){
         return $this->created;
@@ -99,7 +100,7 @@ class Photo extends Connection {
     }
 
     function photo_list(){
-        $sql_query = "SELECT * FROM view_photo_products WHERE stock_keeping_unit = '" . $this->getStockKeepingUnit() . "' ORDER BY sequence";
+        $sql_query = "SELECT id, file_name, sequence, stock_keeping_unit, file_name_thumbnail, size, created FROM view_photo_products WHERE stock_keeping_unit = '" . $this->getStockKeepingUnit() . "' ORDER BY sequence";
         $pdo = $this->o_db;
         $stmt = $pdo->prepare($sql_query);
         $array_photo= array();
@@ -111,6 +112,7 @@ class Photo extends Connection {
             $the_photo->setSequence($row[2]);
             $the_photo->setFileNameThumbnail($row[4]);
             $the_photo->setSize($row[5]);
+            $the_photo->setCreated($row[6]);
             array_push($array_photo, $the_photo);
         }
         return $array_photo;
