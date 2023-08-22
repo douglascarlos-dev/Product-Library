@@ -83,7 +83,7 @@ foreach($photo as &$photo_value):
         </div>
         <div class="form-group col-md-2">
             <label for="inputSku">Resolução</label>
-            <input type="text" class="form-control" id="inputSku" name="sku" value="1200px 1200px" maxlength="100" readonly>
+            <input type="text" class="form-control" id="inputSku" name="sku" value="<?php echo $photo_value->getWidth(); ?>px <?php echo $photo_value->getHeight(); ?>px" maxlength="100" readonly>
         </div>
         <div class="form-group col-md-2">
             <label for="inputSku">Tamanho</label>

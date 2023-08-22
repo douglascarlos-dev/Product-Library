@@ -6,6 +6,8 @@ class Photo extends Connection {
     private $file_name;
     private $file_name_thumbnail;
     private $sequence;
+    private $width;
+    private $height;
     private $size;
     private $created;
     private $updated;
@@ -25,6 +27,14 @@ class Photo extends Connection {
     }
     public function setSequence($sequence){
         $this->sequence=$sequence;
+        return $this;
+    }
+    public function setWidth($width){
+        $this->width=$width;
+        return $this;
+    }
+    public function setHeight($height){
+        $this->height=$height;
         return $this;
     }
     public function setSize($size){
@@ -57,8 +67,13 @@ class Photo extends Connection {
     public function getSequence(){
         return $this->sequence;
     }
+    public function getWidth(){
+        return $this->width;
+    }
+    public function getHeight(){
+        return $this->height;
+    }
     public function getSize(){
-        //return $this->convertToReadableSize($this->size);
         return $this->size;
     }
     public function getCreated(){
@@ -83,6 +98,8 @@ class Photo extends Connection {
                         (
                             '" . $this->getFileName() . "',
                             '" . $this->getSequence() . "',
+                            '" . $this->getWidth() . "',
+                            '" . $this->getHeight() . "',
                             '" . $this->getSize() . "',
                             '" . $this->getStockKeepingUnit() . "',
                             '" . $this->getFileNameThumbnail() . "'
@@ -100,7 +117,7 @@ class Photo extends Connection {
     }
 
     function photo_list(){
-        $sql_query = "SELECT id, file_name, sequence, stock_keeping_unit, file_name_thumbnail, size, created FROM view_photo_products WHERE stock_keeping_unit = '" . $this->getStockKeepingUnit() . "' ORDER BY sequence";
+        $sql_query = "SELECT id, file_name, sequence, stock_keeping_unit, file_name_thumbnail, size, created, width, height FROM view_photo_products WHERE stock_keeping_unit = '" . $this->getStockKeepingUnit() . "' ORDER BY sequence";
         $pdo = $this->o_db;
         $stmt = $pdo->prepare($sql_query);
         $array_photo= array();
@@ -113,6 +130,8 @@ class Photo extends Connection {
             $the_photo->setFileNameThumbnail($row[4]);
             $the_photo->setSize($row[5]);
             $the_photo->setCreated($row[6]);
+            $the_photo->setWidth($row[7]);
+            $the_photo->setHeight($row[8]);
             array_push($array_photo, $the_photo);
         }
         return $array_photo;

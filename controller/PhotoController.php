@@ -92,10 +92,16 @@ class PhotoController {
                 imagecopyresampled($image_p, $image, 0, 0, 0, 0, $width, $height, $width_orig, $height_orig);
                 imagejpeg($image_p, "foto/".$stock_keeping_unit."/".$file_name_3, 100);
 
+
                 $photo->setFileName($file_name_2);
                 $photo->setFileNameThumbnail($file_name_3);
                 $photo->setSequence($seq);
                 $photo->setSize($file_size);
+
+                list($width, $height) = getimagesize($filename);
+                $photo->setWidth($width);
+                $photo->setHeight($height);
+
                 $photo->post_photo_save();
                 ProductsController::edit($photo->getStockKeepingUnit());
             }else{

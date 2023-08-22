@@ -209,7 +209,7 @@ END;
 	<role name="postgres"/>
 	<position x="400" y="260"/>
 	<reference>
-		<expression><![CDATA[SELECT photo.id, photo."file_name" , photo."sequence", products.stock_keeping_unit, photo.file_name_thumbnail, photo.size, photo.created FROM (photo JOIN products ON ((photo.id_products = products.id)));]]></expression>
+		<expression><![CDATA[SELECT photo.id, photo."file_name" , photo."sequence", products.stock_keeping_unit, photo.file_name_thumbnail, photo.size, photo.created, photo.width, photo.height FROM (photo JOIN products ON ((photo.id_products = products.id)));]]></expression>
 		<reftable name="public.products"/>
 		<reftable name="public.photo"/>
 	</reference>
@@ -254,6 +254,12 @@ END;
 	<parameter name="sequence_">
 		<type name="integer" length="0"/>
 	</parameter>
+	<parameter name="width_">
+		<type name="integer" length="0"/>
+	</parameter>
+	<parameter name="height_">
+		<type name="integer" length="0"/>
+	</parameter>
 	<parameter name="size_">
 		<type name="integer" length="0"/>
 	</parameter>
@@ -268,7 +274,7 @@ BEGIN
 
 SELECT id INTO id_produto FROM products WHERE products.stock_keeping_unit=stockkeepingunit_;
 
-INSERT INTO photo(file_name, sequence, id_products, file_name_thumbnail, size) VALUES (file_name_, sequence_, id_produto, file_name_thumbnail_, size_);
+INSERT INTO photo(file_name, sequence, id_products, file_name_thumbnail, size, width, height) VALUES (file_name_, sequence_, id_produto, file_name_thumbnail_, size_, width_, height_);
 
 RETURN id_produto;
 
