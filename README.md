@@ -27,3 +27,9 @@ Com o Product Library além de cadastrar as imagens do seu produto é possível 
                    ├── nomeDoArquivo.pdf
                    └── nomeDoArquivo.pdf
 ```
+
+#### Foto
+
+As fotos de um produto serão armazenadas dentro de uma pasta nomeada com o SKU do produto dentro da pasta foto.
+Os arquivos serão nomeado com o SKU seguido de Underline ( _ ) e uma sequência numérica.
+Será coletado a altura, largura, tamanho e data de carregamento do arquivo.
