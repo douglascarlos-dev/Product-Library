@@ -43,6 +43,9 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<constraint name="products_pk" type="pk-constr" table="public.products">
 		<columns names="id" ref-type="src-columns"/>
 	</constraint>
+	<constraint name="stock_keeping_unit_unique" type="uq-constr" table="public.products">
+		<columns names="stock_keeping_unit" ref-type="src-columns"/>
+	</constraint>
 </table>
 
 <sequence name="users_id_seq" cycle="false" start="2" increment="1" min-value="1" max-value="2147483647" cache="1">
@@ -96,7 +99,8 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<definition><![CDATA[DECLARE id_retorno integer;
 BEGIN
 
-INSERT INTO products(stock_keeping_unit, description) VALUES (stock_keeping_unit_, description_);
+INSERT INTO products(stock_keeping_unit, description) VALUES (stock_keeping_unit_, description_)
+ON CONFLICT (stock_keeping_unit) DO NOTHING;
 
 SELECT id INTO id_retorno FROM products WHERE products.stock_keeping_unit=stock_keeping_unit_;
 
