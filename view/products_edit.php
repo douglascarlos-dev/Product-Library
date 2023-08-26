@@ -116,7 +116,7 @@ foreach($video as &$video_value):
         </div>
         <div class="form-group col-md-2">
             <label for="inputSku">Data</label>
-            <input type="text" class="form-control" id="inputSku" name="sku" value="2023-07-23 22:03:11" maxlength="100" readonly>
+            <input type="text" class="form-control" id="inputSku" name="sku" value="<?php echo $video_value->getCreated(); ?>" maxlength="100" readonly>
         </div>
         <div class="form-group col-md-2">
             <label for="inputSku">Resolução</label>

@@ -94,6 +94,7 @@ class Video extends Connection {
             $the_video->setFileName($row[1]);
             $the_video->setSequence($row[2]);
             $the_video->setFileNameThumbnail($row[4]);
+            $the_video->setCreated($row[5]);
             array_push($array_video, $the_video);
         }
         return $array_video;

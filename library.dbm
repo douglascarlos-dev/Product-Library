@@ -474,7 +474,7 @@ END;
 	<role name="postgres"/>
 	<position x="100" y="300"/>
 	<reference>
-		<expression><![CDATA[SELECT video.id, video."file_name" , video."sequence", products.stock_keeping_unit, video.file_name_thumbnail FROM (video JOIN products ON ((video.id_products = products.id)));]]></expression>
+		<expression><![CDATA[SELECT video.id, video."file_name" , video."sequence", products.stock_keeping_unit, video.file_name_thumbnail, video.created FROM (video JOIN products ON ((video.id_products = products.id)));]]></expression>
 		<reftable name="public.products"/>
 		<reftable name="public.video"/>
 	</reference>
