@@ -83,11 +83,11 @@ foreach($photo as &$photo_value):
         </div>
         <div class="form-group col-md-2">
             <label for="inputSku">Resolução</label>
-            <input type="text" class="form-control" id="inputSku" name="sku" value="<?php echo $photo_value->getWidth(); ?>px <?php echo $photo_value->getHeight(); ?>px" maxlength="100" readonly>
+            <input type="text" class="form-control" id="inputSku" name="sku" value="<?php echo $photo_value->getWidth(); ?>px <?php echo $photo_value->getHeight(); ?>px <?php if ($photo_value->getWidth() <> 1200 or $photo_value->getHeight() <> 1200)  echo "⚠️"; ?>" maxlength="100" readonly>
         </div>
         <div class="form-group col-md-2">
             <label for="inputSku">Tamanho</label>
-            <input type="text" class="form-control" id="inputSku" name="sku" value="<?php echo $photo_value->convertToReadableSize($photo_value->getSize()); ?>" maxlength="100" readonly>
+            <input type="text" class="form-control" id="inputSku" name="sku" value="<?php echo $photo_value->convertToReadableSize($photo_value->getSize()); ?> <?php if ($photo_value->getSize() >= 1000000)  echo "⚠️"; ?>" maxlength="100" readonly>
         </div>
     </div>
 
