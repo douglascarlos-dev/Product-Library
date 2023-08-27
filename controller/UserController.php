@@ -56,7 +56,7 @@ class UserController{
             $params = require "model/database.php";
             $data_captcha = array(
                 'secret' => $params['captcha_secret'],
-                'response' => $_POST['h-captcha-response']
+                'response' => @$_POST['h-captcha-response']
                     );
             $verify = curl_init();
             curl_setopt($verify, CURLOPT_URL, "https://hcaptcha.com/siteverify");

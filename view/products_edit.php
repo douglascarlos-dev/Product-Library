@@ -135,7 +135,7 @@ endforeach;
 <button type="submit" class="btn btn-primary">Atualizar</button>
 <a class="btn btn-outline-primary" id="newPhoto" href="<?php echo URLROOT; ?>/photo/new/<?php echo $products->getStockKeepingUnit(); ?>" role="button">Adicionar foto 📸</a>
 <a class="btn btn-outline-primary" id="newVideo" href="<?php echo URLROOT; ?>/video/new/<?php echo $products->getStockKeepingUnit(); ?>" role="button">Adicionar vídeo 📹</a>
-<a class="btn btn-danger" href="<?php echo URLROOT; ?>/photo/delete/<?php echo $products->getStockKeepingUnit(); ?>" role="button">Deletar</a>
+<a class="btn btn-danger" href="<?php echo URLROOT; ?>/products/delete/<?php echo $products->getStockKeepingUnit(); ?>" role="button">Deletar</a>
 </form>
 </div>
 </div>

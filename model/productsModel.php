@@ -114,6 +114,24 @@ class Products extends Connection {
         return $row;
     }
 
+    function products_delete(){
+        $sql_query = "SELECT * FROM products_remove_function
+                        (
+                            '" . $this->getStockKeepingUnit() . "'
+                        )";
+        $pdo = $this->o_db;
+        $stmt = $pdo->prepare($sql_query);
+        $stmt->execute();
+        $row = $stmt->rowCount();
+        @rmdir("foto/".$this->getStockKeepingUnit());
+        return $row;
+    }
+
+    function post_products_delete(){
+        $result = $this->products_delete();
+        return $result;
+    }
+
 }
 
 ?>
