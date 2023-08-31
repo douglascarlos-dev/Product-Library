@@ -99,16 +99,16 @@ class VideoController {
                 $video->setFileName($file_name_2);
                 $video->setFileNameThumbnail($stock_keeping_unit.'_'.$seq.'.jpg');
                 $video->setSequence($seq);
-                $video->post_video_save();
+                
 
                 $ffmpeg = FFMpeg\FFMpeg::create();
                 $video_FFMpeg = $ffmpeg->open('video/'.$file_name_2);
                 $video_FFMpeg
                     ->filters()
-                    ->resize(new FFMpeg\Coordinate\Dimension(240, 240))
+                    ->resize(new FFMpeg\Coordinate\Dimension(600, 600))
                     ->synchronize();
                 $video_FFMpeg
-                    ->frame(FFMpeg\Coordinate\TimeCode::fromSeconds(10))
+                    ->frame(FFMpeg\Coordinate\TimeCode::fromSeconds(5))
                     ->save('video/'.$stock_keeping_unit.'_'.$seq.'.jpg');
                 $video_FFMpeg
                     ->addFilter(new \FFMpeg\Filters\Audio\SimpleFilter(['-an']))
@@ -116,6 +116,10 @@ class VideoController {
 
                     unlink("video/".$file_name_2);
                     rename("video/export-x264.mp4", "video/".$file_name_2);
+
+                $video->setSize(filesize("video/".$file_name_2));
+                //echo filesize("video/".$file_name_2);
+                $video->post_video_save();
 
                 ProductsController::edit($video->getStockKeepingUnit());
             }else{

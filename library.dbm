@@ -454,6 +454,9 @@ END;
 	<parameter name="sequence_">
 		<type name="integer" length="0"/>
 	</parameter>
+	<parameter name="size_">
+		<type name="integer" length="0"/>
+	</parameter>
 	<parameter name="stockkeepingunit_">
 		<type name="character varying" length="0"/>
 	</parameter>
@@ -465,7 +468,7 @@ BEGIN
 
 SELECT id INTO id_produto FROM products WHERE products.stock_keeping_unit=stockkeepingunit_;
 
-INSERT INTO video(file_name, sequence, id_products, file_name_thumbnail) VALUES (file_name_, sequence_, id_produto, file_name_thumbnail_);
+INSERT INTO video(file_name, sequence, id_products, file_name_thumbnail, size) VALUES (file_name_, sequence_, id_produto, file_name_thumbnail_, size_);
 
 RETURN id_produto;
 
@@ -478,7 +481,7 @@ END;
 	<role name="postgres"/>
 	<position x="40" y="340"/>
 	<reference>
-		<expression><![CDATA[SELECT video.id, video."file_name" , video."sequence", products.stock_keeping_unit, video.file_name_thumbnail, video.created FROM (video JOIN products ON ((video.id_products = products.id)));]]></expression>
+		<expression><![CDATA[SELECT video.id, video."file_name" , video."sequence", products.stock_keeping_unit, video.file_name_thumbnail, video.created, video.size FROM (video JOIN products ON ((video.id_products = products.id)));]]></expression>
 		<reftable name="public.products"/>
 		<reftable name="public.video"/>
 	</reference>

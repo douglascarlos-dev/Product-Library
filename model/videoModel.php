@@ -6,6 +6,7 @@ class Video extends Connection {
     private $file_name;
     private $file_name_thumbnail;
     private $sequence;
+    private $size;
     private $created;
     private $updated;
     private $stock_keeping_unit;
@@ -24,6 +25,10 @@ class Video extends Connection {
     }
     public function setSequence($sequence){
         $this->sequence=$sequence;
+        return $this;
+    }
+    public function setSize($size){
+        $this->size=$size;
         return $this;
     }
     public function setCreated($created){
@@ -52,6 +57,9 @@ class Video extends Connection {
     public function getSequence(){
         return $this->sequence;
     }
+    public function getSize(){
+        return $this->size;
+    }
     public function getCreated(){
         return $this->created;
     }
@@ -62,11 +70,19 @@ class Video extends Connection {
         return $this->stock_keeping_unit;
     }
 
+    function convertToReadableSize($size){
+        $base = log($size) / log(1024);
+        $suffix = array("", "KB", "MB", "GB", "TB");
+        $f_base = floor($base);
+        return round(pow(1024, $base - floor($base)), 1) . $suffix[$f_base];
+    }
+
     function video_save(){
          $sql_query = "SELECT * FROM video_insert_function
                         (
                             '" . $this->getFileName() . "',
                             '" . $this->getSequence() . "',
+                            '" . $this->getSize() . "',
                             '" . $this->getStockKeepingUnit() . "',
                             '" . $this->getFileNameThumbnail() . "'
                         )";
@@ -95,6 +111,7 @@ class Video extends Connection {
             $the_video->setSequence($row[2]);
             $the_video->setFileNameThumbnail($row[4]);
             $the_video->setCreated($row[5]);
+            $the_video->setSize($row[6]);
             array_push($array_video, $the_video);
         }
         return $array_video;
