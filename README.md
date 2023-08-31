@@ -1,5 +1,9 @@
 # Product Library
 
+![Static Badge](https://img.shields.io/badge/Apache%20HTTP-%3E%3D2.4.52-cb2138) ![Static Badge](https://img.shields.io/badge/PHP-%3E%3D8.1-blue) ![Static Badge](https://img.shields.io/badge/Ubuntu-22.04-orange) ![Static Badge](https://img.shields.io/badge/PostgreSQL-14.8-blue)
+
+
+
 ### Biblioteca de imagens, vídeos e PDF para e-commerce.
 
 Com o Product Library além de cadastrar as imagens do seu produto é possível cadastrar vídeos e pdf. Ao carregar os arquivos é coletado o seu tamanho, dimensões, data de atualização e outras informações.
