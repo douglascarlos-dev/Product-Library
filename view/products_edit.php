@@ -67,7 +67,7 @@ foreach($photo as &$photo_value):
         <br><br><a class="btn btn-danger" href="<?php echo URLROOT; ?>/photo/delete/<?php echo $products->getStockKeepingUnit(); ?>/<?php echo $photo_value->getFileName(); ?>" role="button">Deletar</a>
         </div>
         <div class="form-group col-md-2">
-          <center><a href="<?php echo URLROOT; ?>/foto/<?php echo $products->getStockKeepingUnit(); ?>/<?php echo $photo_value->getFileName()."?t=".time(); ?>" target="_blank"><img src="<?php echo URLROOT; ?>/foto/<?php echo $products->getStockKeepingUnit(); ?>/<?php echo $photo_value->getFileNameThumbnail()."?t=".time(); ?>" alt="Image preview" class="thumbnail" width="120" height="120"></a></center>
+          <center><a href="<?php echo URLROOT; ?>/foto/<?php echo $products->getStockKeepingUnit(); ?>/<?php echo $photo_value->getFileName()."?t=".strtotime($photo_value->getCreated()); ?>" target="_blank"><img src="<?php echo URLROOT; ?>/foto/<?php echo $products->getStockKeepingUnit(); ?>/<?php echo $photo_value->getFileNameThumbnail()."?t=".strtotime($photo_value->getCreated()); ?>" alt="Image preview" class="thumbnail" width="120" height="120"></a></center>
         </div>
         <div class="form-group col-md-2">
             <label for="inputSku">Nome do arquivo</label>
@@ -104,7 +104,7 @@ foreach($video as &$video_value):
         <br><br><a class="btn btn-danger" href="<?php echo URLROOT; ?>/video/delete/<?php echo $products->getStockKeepingUnit(); ?>/<?php echo $video_value->getFileName(); ?>" role="button">Deletar</a>
         </div>
         <div class="form-group col-md-2">
-          <center><a href="<?php echo URLROOT; ?>/video/<?php echo $video_value->getFileName()."?t=".time(); ?>" target="_blank"><img src="<?php echo URLROOT; ?>/video/<?php echo $video_value->getFileNameThumbnail()."?t=".time(); ?>" alt="Image preview" class="thumbnail" width="120" height="120"></a></center>
+          <center><a href="<?php echo URLROOT; ?>/video/<?php echo $video_value->getFileName()."?t=".strtotime($video_value->getCreated()); ?>" target="_blank"><img src="<?php echo URLROOT; ?>/video/<?php echo $video_value->getFileNameThumbnail()."?t=".strtotime($video_value->getCreated()); ?>" alt="Image preview" class="thumbnail" width="120" height="120"></a></center>
         </div>
         <div class="form-group col-md-2">
             <label for="inputSku">Nome do arquivo</label>
