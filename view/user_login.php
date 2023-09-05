@@ -50,6 +50,13 @@ echo $params['captcha_data-sitekey'];
         </form>
       </div>
     </div>
+       <footer class="pt-4 my-md-5 pt-md-5 border-top">
+        <div class="row">
+          <div class="col-12 col-md">
+            <small class="d-block mb-3 text-muted text-center">© 2023 - Uberaba.MG<br><br><a href="https://github.com/douglascarlos-dev" target="_blank"><img src="img/logo.svg" alt="HTML tutorial" style="height:50px;"></a></small>
+          </div>
+        </div>
+      </footer>
   </div>
 <script type="text/javascript" src="<?php echo URLROOT; ?>/js/jquery-3.5.1.slim.min.js"></script>
 <script src="<?php echo URLROOT; ?>/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
