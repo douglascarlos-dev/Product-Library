@@ -21,7 +21,7 @@
       <form name="register" action="<?php echo URLROOT; ?>/video/save/<?php echo $stock_keeping_unit; ?>" method="post" enctype="multipart/form-data">
         <div class="form-row">
           <div class="input-group col-md-12">
-            <label for="exampleFormControlFile1">Vídeo</label>     
+            <label for="exampleFormControlFile1">Vídeo (máximo de 2 MB)</label>     
             <input type="file" class="form-control-file" id="inputVideo" name="video" accept="video/mp4,video/x-m4v">
           </div>
         </div>
@@ -30,7 +30,7 @@
       </form>
 
       <div class="card-body">
-      ⚠️ Favor arguardar enquanto o vídeo é carregado e convertido para as dimensões 240p (240 x 240). Isso pode levar alguns minutos.
+        ⚠️ Favor arguardar enquanto o vídeo é carregado.
       </div>
       </div>
 </div>

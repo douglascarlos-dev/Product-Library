@@ -108,14 +108,14 @@ class VideoController {
                     ->resize(new FFMpeg\Coordinate\Dimension(600, 600))
                     ->synchronize();
                 $video_FFMpeg
-                    ->frame(FFMpeg\Coordinate\TimeCode::fromSeconds(5))
+                    ->frame(FFMpeg\Coordinate\TimeCode::fromSeconds(6))
                     ->save('video/'.$stock_keeping_unit.'_'.$seq.'.jpg');
-                $video_FFMpeg
-                    ->addFilter(new \FFMpeg\Filters\Audio\SimpleFilter(['-an']))
-                    ->save(new FFMpeg\Format\Video\X264(), 'video/export-x264.mp4');
+                //$video_FFMpeg
+                    //->addFilter(new \FFMpeg\Filters\Audio\SimpleFilter(['-an']))
+                    //->save(new FFMpeg\Format\Video\X264(), 'video/export-x264.mp4');
 
-                    unlink("video/".$file_name_2);
-                    rename("video/export-x264.mp4", "video/".$file_name_2);
+                    //unlink("video/".$file_name_2);
+                    //rename("video/export-x264.mp4", "video/".$file_name_2);
 
                 $video->setSize(filesize("video/".$file_name_2));
                 //echo filesize("video/".$file_name_2);

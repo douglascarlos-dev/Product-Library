@@ -21,7 +21,7 @@
       <form name="register" action="<?php echo URLROOT; ?>/photo/save/<?php echo $stock_keeping_unit; ?>" method="post" enctype="multipart/form-data">
         <div class="form-row">
           <div class="input-group col-md-12">
-            <label for="exampleFormControlFile1">Foto</label>     
+            <label for="exampleFormControlFile1">Foto (máximo de 2 MB)</label>     
             <input type="file" class="form-control-file" id="inputPhoto" name="photo" accept="image/png, image/jpeg">
           </div>
         </div>
