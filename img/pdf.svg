@@ -1,0 +1,25 @@
+<svg id="Camada_1" data-name="Camada 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 255.11811 340.15748">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #cc161a;
+      }
+
+      .cls-2 {
+        fill: #f18c8e;
+      }
+
+      .cls-3 {
+        font-size: 94px;
+        fill: #fff;
+        stroke: #fff;
+        stroke-miterlimit: 10;
+        stroke-width: 2px;
+        font-family: MyriadPro-Regular, Myriad Pro;
+      }
+    </style>
+  </defs>
+  <path class="cls-1" d="M32.57087,12.57874H168.689l79.37008,79.37008V302.06693a25.51182,25.51182,0,0,1-25.51182,25.51181H32.57087A25.51181,25.51181,0,0,1,7.05906,302.06693V38.09055A25.51181,25.51181,0,0,1,32.57087,12.57874Z"/>
+  <path class="cls-2" d="M159.05906,12.57874H168.689l79.37008,79.37008v9.62992H178.90157a19.84251,19.84251,0,0,1-19.84251-19.84252Z"/>
+  <text class="cls-3" transform="translate(57.55954 247.13386) scale(1.01734 1)">pdf</text>
+</svg>
