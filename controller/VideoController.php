@@ -97,10 +97,10 @@ class VideoController {
 */
 
                 $video->setFileName($file_name_2);
-                $video->setFileNameThumbnail($stock_keeping_unit.'_'.$seq.'.jpg');
+                $video->setFileNameThumbnail('');
                 $video->setSequence($seq);
                 
-
+/*
                 $ffmpeg = FFMpeg\FFMpeg::create();
                 $video_FFMpeg = $ffmpeg->open('video/'.$file_name_2);
                 $video_FFMpeg
@@ -110,6 +110,7 @@ class VideoController {
                 $video_FFMpeg
                     ->frame(FFMpeg\Coordinate\TimeCode::fromSeconds(6))
                     ->save('video/'.$stock_keeping_unit.'_'.$seq.'.jpg');
+                    */
                 //$video_FFMpeg
                     //->addFilter(new \FFMpeg\Filters\Audio\SimpleFilter(['-an']))
                     //->save(new FFMpeg\Format\Video\X264(), 'video/export-x264.mp4');

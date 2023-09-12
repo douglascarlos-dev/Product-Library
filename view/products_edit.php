@@ -104,7 +104,13 @@ foreach($video as &$video_value):
         <br><br><a class="btn btn-danger" href="<?php echo URLROOT; ?>/video/delete/<?php echo $products->getStockKeepingUnit(); ?>/<?php echo $video_value->getFileName(); ?>" role="button">Deletar</a>
         </div>
         <div class="form-group col-md-2">
-          <center><a href="<?php echo URLROOT; ?>/video/<?php echo $video_value->getFileName()."?t=".strtotime($video_value->getCreated()); ?>" target="_blank"><img src="<?php echo URLROOT; ?>/video/<?php echo $video_value->getFileNameThumbnail()."?t=".strtotime($video_value->getCreated()); ?>" alt="Image preview" class="thumbnail" width="120" height="120"></a></center>
+          <center><a href="<?php echo URLROOT; ?>/video/<?php echo $video_value->getFileName()."?t=".strtotime($video_value->getCreated()); ?>" target="_blank"><img src="<?php echo URLROOT; ?><?php
+          if($video_value->getFileNameThumbnail() == ""){
+            echo "/img/mp4.svg";
+          } else {
+            echo "/video/" . $video_value->getFileNameThumbnail()."?t=".strtotime($video_value->getCreated());
+          }
+          ?>" alt="Image preview" class="thumbnail" width="120" height="120"></a></center>
         </div>
         <div class="form-group col-md-2">
             <label for="inputSku">Nome do arquivo</label>

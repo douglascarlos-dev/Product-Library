@@ -136,7 +136,7 @@ class Video extends Connection {
         $thumbnail = $row[0];
 
         @unlink("video/".$this->getFileName());
-        @unlink("video/".$thumbnail);
+        //@unlink("video/".$thumbnail);
         $sql_query = "SELECT * FROM video_delete
                         (
                             '" . $this->getFileName() . "'
