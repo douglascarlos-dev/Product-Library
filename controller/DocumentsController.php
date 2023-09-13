@@ -71,18 +71,10 @@ class DocumentsController {
     }
 
     public static function edit( $file_name ) {
-        /*$products = new Products();
-        $products->setStockKeepingUnit($stock_keeping_unit);
-        $products = $products->products_list();
-        $photo = new Photo();
-        $photo->setStockKeepingUnit($stock_keeping_unit);
-        $photo = $photo->post_photo_list();
-        $video = new Video();
-        $video->setStockKeepingUnit($stock_keeping_unit);
-        $video = $video->post_video_list();
-        require_once 'view/products_edit.php';*/
         $documents = new Documents();
-        require_once 'view/documents_view.php';
+        $documents->setFileName($file_name);
+        $documents = $documents->documents_list();
+        require_once 'view/documents_edit.php';
     }
 
 }

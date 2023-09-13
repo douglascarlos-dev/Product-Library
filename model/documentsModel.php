@@ -32,6 +32,7 @@ class Documents extends Connection {
         return $this;
     }
     public function setCreated($created){
+        $created = date("d/m/Y H:i", strtotime($created));
         $this->created=$created;
         return $this;
     }
@@ -66,6 +67,13 @@ class Documents extends Connection {
         return $this->updated;
     }
 
+    function convertToReadableSize($size){
+        $base = log($size) / log(1024);
+        $suffix = array("", "KB", "MB", "GB", "TB");
+        $f_base = floor($base);
+        return round(pow(1024, $base - floor($base)), 1) . $suffix[$f_base];
+    }
+
     function get_all_documents(){
         $consulta = $this->database_select_all('documents');
         return $consulta;
@@ -97,6 +105,20 @@ class Documents extends Connection {
         $stmt->execute();
         $row = $stmt->fetch();
         return $row;
+    }
+
+    function documents_list(){
+        $pdo = $this->o_db;
+        $stmt = $pdo->prepare("SELECT * FROM documents WHERE file_name = '" . $this->getFileName() . "' LIMIT 1"); 
+        $stmt->execute(); 
+        $row = $stmt->fetch();
+        $documents = new Documents();
+        $documents->setFileName($row[1]);
+        $documents->setFileNameThumbnail($row[2]);
+        $documents->setDescription($row[3]);
+        $documents->setSize($row[5]);
+        $documents->setCreated($row[6]);
+        return $documents;
     }
     
 }

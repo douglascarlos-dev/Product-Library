@@ -61,8 +61,8 @@ if(count($resultado) >= 1){
         
     <div class="container">
     <div class="row">
-      <div class="col p-2"><b>SKU</b></div>
-      <div class="col p-2"><b>descrição</b></div>
+      <div class="col p-2"><b>Nome do arquivo</b></div>
+      <div class="col p-2"><b>Descrição</b></div>
       <div class="col p-2"><b>Ações</b></div>
  
 
@@ -73,7 +73,7 @@ foreach($resultado as &$value):
       <div class="w-100"></div>
       <div class="col<?php echo !($i % 2) ? " bg-light text-dark p-2" : " p-2"; ?>"><?php echo $value["file_name"]; ?></div>  
       <div class="col<?php echo !($i % 2) ? " bg-light text-dark p-2" : " p-2"; ?>"><?php echo $value["description"]; ?></div>  
-      <div class="col<?php echo !($i % 2) ? " bg-light text-dark p-2" : " p-2"; ?>"><a class="btn btn-primary btn-xs" href="<?php echo URLROOT; ?>/pdf/<?php echo $value["file_name"]; ?>">Visualizar</a></div>   
+      <div class="col<?php echo !($i % 2) ? " bg-light text-dark p-2" : " p-2"; ?>"><a class="btn btn-primary btn-xs" href="<?php echo URLROOT; ?>/documents/edit/<?php echo $value["file_name"]; ?>">Visualizar</a></div>   
       
       <?php
       $i++;
