@@ -77,6 +77,14 @@ class DocumentsController {
         require_once 'view/documents_edit.php';
     }
 
+    public function update( $file_name ) {
+        $documents = new Documents();
+        $documents->setFileName($file_name);
+        $documents->setDescription($_REQUEST['descricao']);
+        $documents->post_documents_update();
+        DocumentsController::edit($documents->getFileName());
+    }
+
 }
 
 ?>

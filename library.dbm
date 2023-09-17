@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
  Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.4" use-changelog="false" last-position="0,0" last-zoom="1" max-obj-count="10"
+<dbmodel pgmodeler-ver="0.9.4" use-changelog="false" last-position="0,0" last-zoom="1" max-obj-count="12"
 	 default-owner="postgres"
 	 layers="Default layer"
 	 active-layers="0"
@@ -633,6 +633,43 @@ SELECT id INTO id_retorno FROM documents WHERE documents.file_name=file_name_;
 RETURN id_retorno;
 
 END;]]></definition>
+</function>
+
+<function name="documents_update_function"
+		window-func="false"
+		returns-setof="false"
+		behavior-type="CALLED ON NULL INPUT"
+		function-type="VOLATILE"
+		security-type="SECURITY INVOKER"
+		parallel-type="PARALLEL UNSAFE"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<language name="plpgsql"/>
+	<return-type>
+	<type name="integer" length="0"/>
+	</return-type>
+	<parameter name="file_name_">
+		<type name="character varying" length="0"/>
+	</parameter>
+	<parameter name="description_">
+		<type name="character varying" length="0"/>
+	</parameter>
+	<parameter name="updated_">
+		<type name="timestamptz" length="0"/>
+	</parameter>
+	<definition><![CDATA[DECLARE id_retorno integer;
+BEGIN
+
+UPDATE documents SET description = description_, updated = updated_ WHERE file_name = file_name_;
+
+SELECT id INTO id_retorno FROM documents WHERE documents.file_name=file_name_;
+
+RETURN id_retorno;
+
+END;
+]]></definition>
 </function>
 
 </dbmodel>

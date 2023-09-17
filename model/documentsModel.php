@@ -118,7 +118,30 @@ class Documents extends Connection {
         $documents->setDescription($row[3]);
         $documents->setSize($row[5]);
         $documents->setCreated($row[6]);
+        $documents->setUpdated($row[7]);
         return $documents;
+    }
+
+    function post_documents_update(){
+        $result = $this->documents_update();
+        return $result;
+    }
+
+    function documents_update(){
+        date_default_timezone_set('America/Sao_Paulo');
+        $date = new DateTimeImmutable();
+        $date = $date->format('Y-m-d H:i:s O');
+        $sql_query = "SELECT * FROM documents_update_function
+                        (
+                            '" . $this->getFileName() . "',
+                            '" . $this->getDescription() . "',
+                            '" . $date . "'
+                        )";
+        $pdo = $this->o_db;
+        $stmt = $pdo->prepare($sql_query);
+        $stmt->execute();
+        $row = $stmt->fetch();
+        return $row;
     }
     
 }

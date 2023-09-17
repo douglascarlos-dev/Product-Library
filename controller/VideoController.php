@@ -1,8 +1,7 @@
 <?php
-
 require_once 'model/videoModel.php';
 require_once 'controller/ProductsController.php';
-require 'vendor/autoload.php';
+//require 'vendor/autoload.php';
 
 class VideoController {
 

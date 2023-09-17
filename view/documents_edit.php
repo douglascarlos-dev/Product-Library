@@ -78,7 +78,7 @@ function Mask($mask,$str){
     </div>
     <div class="form-group col-md-2">
       <label for="inputSku">Atualizado</label>
-      <input type="text" class="form-control" id="inputSku" name="sku" value="" maxlength="100" readonly>
+      <input type="text" class="form-control" id="inputSku" name="sku" value="<?php echo $documents->getUpdated(); ?>" maxlength="100" readonly>
     </div>
   </div>
 
@@ -88,6 +88,13 @@ function Mask($mask,$str){
 </div>
 </div>
 </div>
+<!--
+<center>
+  <object data="<?php echo URLROOT; ?>/pdf/<?php echo $documents->getFileName(); ?>" type="application/pdf" width="800px" height="800px">
+    <p>Seu navegador não tem um plugin pra PDF</p>
+  </object>
+</center>
+-->
 
 <script type="text/javascript" src="<?php echo URLROOT; ?>/js/jquery-3.5.1.slim.min.js"></script>
 <script src="<?php echo URLROOT; ?>/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
