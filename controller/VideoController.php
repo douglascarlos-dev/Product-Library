@@ -39,8 +39,8 @@ class VideoController {
             if(in_array($file_ext,$extensions)=== false){
                 $errors[]="extension not allowed, please choose a MP4 file.";
             }
-            if($file_size > 20485760){
-                $errors[]='File size must be excately 10 MB';
+            if($file_size > 2000000){
+                $errors[]='File size must be excately 2 MB';
             }
             if(empty($errors)==true){
                 //@mkdir("video/".$stock_keeping_unit, 0777, true);

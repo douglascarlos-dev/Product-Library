@@ -34,16 +34,7 @@ class DocumentsController {
             @$file_ext = strtolower(end(explode('.',$_FILES['document']['name'])));
             $extensions = array("pdf");
 
-            $file_name = str_replace(' ', '_', $file_name);
-            $file_name = str_replace('-', '_', $file_name);
-            $file_name = str_replace('&', '_', $file_name);
-            $file_name = str_replace('$', '_', $file_name);
-            $file_name = str_replace('(', '_', $file_name);
-            $file_name = str_replace(')', '_', $file_name);
-            $file_name = str_replace('%', '_', $file_name);
-            $file_name = str_replace('~', '_', $file_name);
-            $file_name = preg_replace(array("/(á|à|ã|â|ä)/","/(Á|À|Ã|Â|Ä)/","/(é|è|ê|ë)/","/(É|È|Ê|Ë)/","/(í|ì|î|ï)/","/(Í|Ì|Î|Ï)/","/(ó|ò|õ|ô|ö)/","/(Ó|Ò|Õ|Ô|Ö)/","/(ú|ù|û|ü)/","/(Ú|Ù|Û|Ü)/","/(ñ)/","/(Ñ)/"),explode(" ","a A e E i I o O u U n N"),$file_name);
-            $file_name = strtolower($file_name);
+            $file_name = $this->formatFileName($file_name);
 
             $documents->setFileName($file_name);
 
@@ -83,6 +74,31 @@ class DocumentsController {
         $documents->setDescription($_REQUEST['descricao']);
         $documents->post_documents_update();
         DocumentsController::edit($documents->getFileName());
+    }
+
+    function formatFileName($file_name){
+        // Substitui espaços, traços e caracteres especiais por underscores
+        $file_name = preg_replace('/[ -&()~%]/', '_', $file_name);
+        
+        // Remove acentos
+        $file_name = preg_replace(
+            array("/[áàãâä]/","/[ÁÀÃÂÄ]/","/[éèêë]/","/[ÉÈÊË]/","/[íìîï]/","/[ÍÌÎÏ]/","/[óòõôö]/","/[ÓÒÕÔÖ]/","/[úùûü]/","/[ÚÙÛÜ]/","/ñ/","/Ñ/"),
+            explode(" ","a A e E i I o O u U n N"),
+            $file_name
+        );
+    
+        // Converte para minúsculas
+        $file_name = strtolower($file_name);
+        
+        return $file_name;
+    }
+
+    public function delete( $file_name ){
+        $documents = new Documents();
+        $documents->setFileName($file_name);
+        $documents = $documents->documents_list();
+        $documents->post_documents_delete();
+        DocumentsController::visualizar();
     }
 
 }

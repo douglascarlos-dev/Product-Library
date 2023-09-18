@@ -37,6 +37,7 @@ class Documents extends Connection {
         return $this;
     }
     public function setUpdated($updated){
+        $updated= date("d/m/Y H:i", strtotime($updated));
         $this->updated=$updated;
         return $this;
     }
@@ -67,11 +68,20 @@ class Documents extends Connection {
         return $this->updated;
     }
 
+    /*
     function convertToReadableSize($size){
         $base = log($size) / log(1024);
         $suffix = array("", "KB", "MB", "GB", "TB");
         $f_base = floor($base);
         return round(pow(1024, $base - floor($base)), 1) . $suffix[$f_base];
+    }
+    */
+
+    function convertToReadableSize($size){
+        $suffix = ["B", "KB", "MB", "GB", "TB"];
+        $base = log($size, 1024);
+        $f_base = floor($base);
+        return round($size / pow(1024, $f_base), 1) . $suffix[$f_base];
     }
 
     function get_all_documents(){
@@ -82,7 +92,7 @@ class Documents extends Connection {
     function database_select_all($valor1){
         $pdo = $this->o_db;
         $stmt = $pdo->prepare("SELECT * FROM $valor1 ORDER BY id"); 
-        $stmt->execute(); 
+        $stmt->execute();
         $row = $stmt->fetchAll();
         return $row;
     }
@@ -142,6 +152,24 @@ class Documents extends Connection {
         $stmt->execute();
         $row = $stmt->fetch();
         return $row;
+    }
+
+    function documents_delete(){
+        $sql_query = "SELECT * FROM documents_remove_function
+                        (
+                            '" . $this->getFileName() . "'
+                        )";
+        $pdo = $this->o_db;
+        $stmt = $pdo->prepare($sql_query);
+        $stmt->execute();
+        $row = $stmt->rowCount();
+        @unlink("pdf/".$this->getFileName());
+        return $row;
+    }
+
+    function post_documents_delete(){
+        $result = $this->documents_delete();
+        return $result;
     }
     
 }
