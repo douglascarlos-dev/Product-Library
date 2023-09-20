@@ -122,7 +122,7 @@ foreach($video as &$video_value):
         </div>
         <div class="form-group col-md-2">
             <label for="inputSku">Data</label>
-            <input type="text" class="form-control" id="inputSku" name="sku" value="<?php echo $video_value->getCreated(); ?>" maxlength="100" readonly>
+            <input type="text" class="form-control" id="inputSku" name="sku" value="<?php echo $video_value->formatDate($video_value->getCreated()); ?>" maxlength="100" readonly>
         </div>
         <div class="form-group col-md-2">
             <label for="inputSku">Resolução</label>
@@ -131,6 +131,12 @@ foreach($video as &$video_value):
         <div class="form-group col-md-2">
             <label for="inputSku">Tamanho</label>
             <input type="text" class="form-control" id="inputSku" name="sku" value="<?php echo $video_value->convertToReadableSize($video_value->getSize()); ?> <?php if ($video_value->getSize() >= 2000000)  echo "⚠️"; ?>" maxlength="100" readonly>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-12">
+            <label for="inputSku">URL do Vídeo MP4</label>
+            <input type="text" class="form-control" id="inputSku" name="sku" value="<?php echo "https://" . $_SERVER['SERVER_NAME']; ?><?php echo URLROOT; ?>/video/<?php echo $video_value->getFileName(); ?>" maxlength="100" readonly>
         </div>
     </div>
 
