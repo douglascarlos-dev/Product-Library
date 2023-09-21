@@ -62,7 +62,7 @@ function Mask($mask,$str){
         <br><br><a class="btn btn-info" href="<?php echo URLROOT; ?>/documents/upload/<?php echo $documents->getFileName(); ?>" role="button">Carregar Nova Versão</a>
     </div>
     <div class="form-group col-md-2">
-      <center><img src="<?php echo URLROOT; ?>/img/pdf.svg" alt="Image preview" class="thumbnail" width="90" height="120"></center>
+      <center><a href="<?php echo URLROOT; ?>/pdf/<?php echo $documents->getFileName()."?t=".strtotime($documents->getCreated()); ?>" target="_blank"><img src="<?php echo URLROOT; ?>/img/pdf.svg" alt="Image preview" class="thumbnail" width="90" height="120"></a></center>
     </div>
     <div class="form-group col-md-2">
       <label for="inputSku">Páginas</label>
@@ -81,6 +81,12 @@ function Mask($mask,$str){
       <input type="text" class="form-control" id="inputSku" name="sku" value="<?php echo $documents->getUpdated(); ?>" maxlength="100" readonly>
     </div>
   </div>
+  <div class="form-row">
+        <div class="form-group col-md-12">
+            <label for="inputSku">URL do Documento</label>
+            <input type="text" class="form-control" id="inputSku" name="sku" value="<?php echo "https://" . $_SERVER['SERVER_NAME']; ?><?php echo URLROOT; ?>/video/<?php echo $documents->getFileName(); ?>" maxlength="100" readonly>
+        </div>
+    </div>
 
 <button type="submit" class="btn btn-primary">Atualizar</button>
 <a class="btn btn-danger" href="<?php echo URLROOT; ?>/documents/delete/<?php echo $documents->getFileName(); ?>" role="button">Deletar</a>
