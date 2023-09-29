@@ -126,7 +126,7 @@ foreach($video as &$video_value):
         </div>
         <div class="form-group col-md-2">
             <label for="inputSku">Resolução</label>
-            <input type="text" class="form-control" id="inputSku" name="sku" value="600p (600 x 600)" maxlength="100" readonly>
+            <input type="text" class="form-control" id="inputSku" name="sku" value="720p (720 x 720)" maxlength="100" readonly>
         </div>
         <div class="form-group col-md-2">
             <label for="inputSku">Tamanho</label>

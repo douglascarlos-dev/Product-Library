@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
  Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.4" use-changelog="false" last-position="0,0" last-zoom="1" max-obj-count="13"
+<dbmodel pgmodeler-ver="0.9.4" use-changelog="false" last-position="0,270" last-zoom="1" max-obj-count="13"
 	 default-owner="postgres"
 	 layers="Default layer"
 	 active-layers="0"
@@ -584,7 +584,7 @@ END;]]></definition>
 	<column name="created" default-value="NOW()">
 		<type name="timestamptz" length="0"/>
 	</column>
-	<column name="updated">
+	<column name="updated" default-value="NOW()">
 		<type name="timestamptz" length="0"/>
 	</column>
 	<constraint name="documents_pk" type="pk-constr" table="public.documents">
@@ -656,13 +656,16 @@ END;]]></definition>
 	<parameter name="description_">
 		<type name="character varying" length="0"/>
 	</parameter>
+	<parameter name="size_">
+		<type name="integer" length="0"/>
+	</parameter>
 	<parameter name="updated_">
 		<type name="timestamptz" length="0"/>
 	</parameter>
 	<definition><![CDATA[DECLARE id_retorno integer;
 BEGIN
 
-UPDATE documents SET description = description_, updated = updated_ WHERE file_name = file_name_;
+UPDATE documents SET description = description_, size = size_, updated = updated_ WHERE file_name = file_name_;
 
 SELECT id INTO id_retorno FROM documents WHERE documents.file_name=file_name_;
 
@@ -698,5 +701,31 @@ RETURN file_name_;
 
 END;]]></definition>
 </function>
+
+<sequence name="category_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="2147483647" cache="1">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<table name="category" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="880" y="500"/>
+	<column name="id" not-null="true" sequence="public.category_id_seq">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="name" not-null="true">
+		<type name="character varying" length="100"/>
+	</column>
+	<column name="parent" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<constraint name="name_unique_1_1_1" type="uq-constr" table="public.category">
+		<columns names="name" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="category_pk" type="pk-constr" table="public.category">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
 
 </dbmodel>

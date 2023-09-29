@@ -32,12 +32,12 @@ class Documents extends Connection {
         return $this;
     }
     public function setCreated($created){
-        $created = date("d/m/Y H:i", strtotime($created));
+        //$created = date("d/m/Y H:i", strtotime($created));
         $this->created=$created;
         return $this;
     }
     public function setUpdated($updated){
-        $updated= date("d/m/Y H:i", strtotime($updated));
+        //$updated= date("d/m/Y H:i", strtotime($updated));
         $this->updated=$updated;
         return $this;
     }
@@ -66,6 +66,11 @@ class Documents extends Connection {
     public function getUpdated()
     {
         return $this->updated;
+    }
+
+    public function formatDate($date){
+        $date = date("d/m/Y H:i", strtotime($date));
+        return $date;
     }
 
     /*
@@ -145,6 +150,7 @@ class Documents extends Connection {
                         (
                             '" . $this->getFileName() . "',
                             '" . $this->getDescription() . "',
+                            '" . $this->getSize() . "',
                             '" . $date . "'
                         )";
         $pdo = $this->o_db;

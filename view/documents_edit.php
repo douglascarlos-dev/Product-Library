@@ -62,7 +62,7 @@ function Mask($mask,$str){
         <br><br><a class="btn btn-info" href="<?php echo URLROOT; ?>/documents/upload/<?php echo $documents->getFileName(); ?>" role="button">Carregar Nova Versão</a>
     </div>
     <div class="form-group col-md-2">
-      <center><a href="<?php echo URLROOT; ?>/pdf/<?php echo $documents->getFileName()."?t=".strtotime($documents->getCreated()); ?>" target="_blank"><img src="<?php echo URLROOT; ?>/img/pdf.svg" alt="Image preview" class="thumbnail" width="90" height="120"></a></center>
+      <center><a href="<?php echo URLROOT; ?>/pdf/<?php echo $documents->getFileName()."?t=".strtotime($documents->getUpdated()); ?>" target="_blank"><img src="<?php echo URLROOT; ?>/img/pdf.svg" alt="Image preview" class="thumbnail" width="90" height="120"></a></center>
     </div>
     <div class="form-group col-md-2">
       <label for="inputSku">Páginas</label>
@@ -74,11 +74,11 @@ function Mask($mask,$str){
     </div>
     <div class="form-group col-md-2">
       <label for="inputSku">Carregado</label>
-      <input type="text" class="form-control" id="inputSku" name="sku" value="<?php echo $documents->getCreated(); ?>" maxlength="100" readonly>
+      <input type="text" class="form-control" id="inputSku" name="sku" value="<?php echo $documents->formatDate($documents->getCreated()); ?>" maxlength="100" readonly>
     </div>
     <div class="form-group col-md-2">
       <label for="inputSku">Atualizado</label>
-      <input type="text" class="form-control" id="inputSku" name="sku" value="<?php echo $documents->getUpdated(); ?>" maxlength="100" readonly>
+      <input type="text" class="form-control" id="inputSku" name="sku" value="<?php echo $documents->formatDate($documents->getUpdated()); ?>" maxlength="100" readonly>
     </div>
   </div>
   <div class="form-row">

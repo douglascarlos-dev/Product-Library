@@ -21,7 +21,7 @@
       <form name="register" action="<?php echo URLROOT; ?>/video/save/<?php echo $stock_keeping_unit; ?>" method="post" enctype="multipart/form-data">
         <div class="form-row">
           <div class="input-group col-md-12">
-            <label for="exampleFormControlFile1">Vídeo (máximo de 2 MB)</label>     
+            <label for="exampleFormControlFile1">Vídeo (máximo de 2 MB) 720 Pixels sem áudio</label>     
             <input type="file" class="form-control-file" id="inputVideo" name="video" accept="video/mp4,video/x-m4v">
           </div>
         </div>
@@ -30,7 +30,8 @@
       </form>
 
       <div class="card-body">
-        ⚠️ Favor arguardar enquanto o vídeo é carregado.
+        ⚠️ Favor arguardar enquanto o vídeo é carregado.<br>
+        💡 Para Comprimir o vídeo use o site <a href="https://www.comprimirvideo.com.br" target="_blank">https://www.comprimirvideo.com.br/</a>.
       </div>
       </div>
 </div>
