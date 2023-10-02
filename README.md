@@ -39,3 +39,20 @@ Os arquivos serão nomeado com o SKU seguido de Underline ( _ ) e uma sequência
 Será coletado a altura, largura, tamanho e data de carregamento do arquivo.
 
 Um alerta ⚠️ será exibido para imagens com dimensões ou tamanho fora de especificação.
+
+### Vídeo
+
+Os vídeos serão armazenados dentro da pasta video.
+Os arquivos serão nomeado com o SKU seguido de Underline ( _ ) e uma sequência numérica.
+Caracteres especiais serão removidos do nome do arquivo.
+Será coletado o tamanho e data de carregamento do arquivo.
+
+Um alerta ⚠️ será exibido para imagens com tamanho fora de especificação.
+
+### PDF
+
+Os PDF serão armazenados dentro da pasta pdf com o mesmo nome do arquivo carregado.
+Caracteres especiais serão removidos do nome do arquivo.
+Será coletado o tamanho e data de carregamento do arquivo.
+
+Um alerta ⚠️ será exibido para imagens com tamanho fora de especificação.
