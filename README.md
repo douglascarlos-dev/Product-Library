@@ -60,6 +60,7 @@ Um alerta ⚠️ será exibido para imagens com tamanho fora de especificação.
 ### API
 
 GET host/produto/apiv1.php?sku=SKU
+
 Substitua SKU pelo SKU do produto.
 
 ```shell
