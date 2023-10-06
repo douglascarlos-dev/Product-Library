@@ -32,7 +32,7 @@ Com o Product Library além de cadastrar as imagens do seu produto é possível 
                    └── nomeDoArquivo.pdf
 ```
 
-#### Foto
+### Foto
 
 As fotos de um produto serão armazenadas dentro de uma pasta nomeada com o SKU do produto dentro da pasta foto.
 Os arquivos serão nomeado com o SKU seguido de Underline ( _ ) e uma sequência numérica.
@@ -56,3 +56,27 @@ Caracteres especiais serão removidos do nome do arquivo.
 Será coletado o tamanho e data de carregamento do arquivo.
 
 Um alerta ⚠️ será exibido para imagens com tamanho fora de especificação.
+
+### API
+
+GET host/produto/apiv1.php?sku=SKU
+Substitua SKU pelo SKU do produto.
+
+```shell
+# json retornado
+{
+    "sku": "SKU",
+    "photo": {
+        "found": true,
+        "count": 2,
+        "url": [
+            "https://HOST/produto/foto/SKU/SKU_1.jpg",
+            "https://HOST/produto/foto/SKU/SKU_2.jpg"
+        ],
+        "name": [
+            "SKU_1.jpg",
+            "SKU_2.jpg"
+        ]
+    }
+}
+```
