@@ -81,3 +81,5 @@ Substitua SKU pelo SKU do produto.
     }
 }
 ```
+### Extensão de arquivos 
+Os arquivos podem ter várias extensões, não apenas as apresentadas aqui.
