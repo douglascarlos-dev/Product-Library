@@ -21,11 +21,11 @@
       <form name="register" action="<?php echo URLROOT; ?>/documents/save" method="post" enctype="multipart/form-data">
         <div class="form-row">
           <div class="input-group col-md-4">
-            <label for="inputDocument">Manual/Bula <strong>.pdf</strong> (máximo de <strong><code class="highlighter-rouge">10 MB</code></strong>)</label>     
-            <input type="file" class="form-control-file" id="inputDocument" name="document" accept="application/pdf" required>
+            <label for="inputDocument">Arquivos (máximo de <strong><code class="highlighter-rouge">10 MB</code></strong>)</label>     
+            <input type="file" class="form-control-file" id="inputDocument" name="document" accept="application/pdf, image/*, video/mp4, video/x-m4v" required>
           </div>
           <div class="form-group col-md-8">
-            <label for="inputDescricao">Descrição do documento</label>
+            <label for="inputDescricao">Descrição do arquivo</label>
             <input type="text" class="form-control" id="inputDescricao" name="descricao" maxlength="100" required>
           </div>
         </div>

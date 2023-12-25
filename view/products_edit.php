@@ -79,7 +79,7 @@ foreach($photo as &$photo_value):
         </div>
         <div class="form-group col-md-2">
             <label for="inputSku">Data</label>
-            <input type="text" class="form-control" id="inputSku" name="sku" value="<?php echo $photo_value->getCreated(); ?>" maxlength="100" readonly>
+            <input type="text" class="form-control" id="inputSku" name="sku" value="<?php echo $photo_value->formatDate($photo_value->getCreated()); ?>" maxlength="100" readonly>
         </div>
         <div class="form-group col-md-2">
             <label for="inputSku">Resolução</label>

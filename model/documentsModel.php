@@ -10,6 +10,7 @@ class Documents extends Connection {
     private $size;
     private $created;
     private $updated;
+    private $cdn;
 
     public function setId($id){
         $this->id=$id;
@@ -41,6 +42,10 @@ class Documents extends Connection {
         $this->updated=$updated;
         return $this;
     }
+    public function setCdn($cdn){
+        $this->cdn=$cdn;
+        return $this;
+    }
 
     public function getId()
     {
@@ -66,6 +71,10 @@ class Documents extends Connection {
     public function getUpdated()
     {
         return $this->updated;
+    }
+    public function getCdn()
+    {
+        return $this->cdn;
     }
 
     public function formatDate($date){
@@ -134,12 +143,27 @@ class Documents extends Connection {
         $documents->setSize($row[5]);
         $documents->setCreated($row[6]);
         $documents->setUpdated($row[7]);
+        $documents->setCdn($row[8]);
         return $documents;
     }
 
     function post_documents_update(){
         $result = $this->documents_update();
         return $result;
+    }
+
+    function post_documents_update_cdn(){
+        $result = $this->documents_update_cdn();
+        return $result;
+    }
+
+    function documents_update_cdn(){
+        $sql_query = "UPDATE documents SET cdn = " . $this->getCdn() . " WHERE file_name = '" . $this->getFileName() . "'";
+        $pdo = $this->o_db;
+        $stmt = $pdo->prepare($sql_query);
+        $stmt->execute();
+        $row = $stmt->fetch();
+        return $row;
     }
 
     function documents_update(){
@@ -169,7 +193,7 @@ class Documents extends Connection {
         $stmt = $pdo->prepare($sql_query);
         $stmt->execute();
         $row = $stmt->rowCount();
-        @unlink("pdf/".$this->getFileName());
+        @unlink("files/".$this->getFileName());
         return $row;
     }
 

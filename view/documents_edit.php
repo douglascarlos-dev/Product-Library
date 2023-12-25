@@ -62,7 +62,7 @@ function Mask($mask,$str){
         <br><br><a class="btn btn-info" href="<?php echo URLROOT; ?>/documents/upload/<?php echo $documents->getFileName(); ?>" role="button">Carregar Nova Versão</a>
     </div>
     <div class="form-group col-md-2">
-      <center><a href="<?php echo URLROOT; ?>/pdf/<?php echo $documents->getFileName()."?t=".strtotime($documents->getUpdated()); ?>" target="_blank"><img src="<?php echo URLROOT; ?>/img/pdf.svg" alt="Image preview" class="thumbnail" width="90" height="120"></a></center>
+      <center><a href="<?php echo URLROOT; ?>/files/<?php echo $documents->getFileName()."?t=".strtotime($documents->getUpdated()); ?>" target="_blank"><img src="<?php echo URLROOT; ?>/img/pdf.svg" alt="Image preview" class="thumbnail" width="90" height="120"></a></center>
     </div>
     <div class="form-group col-md-2">
       <label for="inputSku">Páginas</label>
@@ -82,21 +82,44 @@ function Mask($mask,$str){
     </div>
   </div>
   <div class="form-row">
-        <div class="form-group col-md-12">
-            <label for="inputSku">URL do Documento</label>
-            <input type="text" class="form-control" id="inputSku" name="sku" value="<?php echo "https://" . $_SERVER['SERVER_NAME']; ?><?php echo URLROOT; ?>/video/<?php echo $documents->getFileName(); ?>" maxlength="100" readonly>
-        </div>
+    <div class="form-group col-md-12">
+        <label for="inputSku">URL do Documento</label>
+        <input type="text" class="form-control" id="inputSku" name="sku" value="<?php echo "http://" . $_SERVER['SERVER_NAME']; ?><?php echo URLROOT; ?>/files/<?php echo $documents->getFileName(); ?>" maxlength="100" readonly>
     </div>
-
+  </div>
+  <?php if ($documents->getCdn() == 1 & $settings->getBunny() == 1) { ?>
+  <div class="form-row">
+    <div class="form-group col-md-12">
+        <label for="inputSku">URL do Documento no CDN</label>
+        <input type="text" class="form-control" id="inputSku" name="sku" value="<?php echo $settings->getBunnyLinkedHostname(); ?>/files/<?php echo $documents->getFileName(); ?>" maxlength="100" readonly>
+    </div>
+  </div>
+<?php } ?>
 <button type="submit" class="btn btn-primary">Atualizar</button>
 <a class="btn btn-danger" href="<?php echo URLROOT; ?>/documents/delete/<?php echo $documents->getFileName(); ?>" role="button">Deletar</a>
+<a class="btn btn-warning" href="<?php echo URLROOT; ?>/documents" role="button">Cancelar</a>
+<?php //echo ( $settings->getBunny() == 1) ? 'CDN Ativado' : 'CDN Desativado'; ?>
+<?php
+
+if ($settings->getBunny() == 1) {
+  echo ' <a class="btn btn-info" href="' . URLROOT . '/cdn/upload/' . $documents->getFileName() . '" role="button">Enviar para CDN</a>';
+} else {
+  //echo '<a class="btn btn-warning disabled" href="' . URLROOT . '/cdn/delete/' . $documents->getFileName() . '" role="button" aria-disabled="true">Apagar no CDN</a>';
+}
+
+if ($documents->getCdn() == 1 & $settings->getBunny() == 1) {
+  echo ' <a class="btn btn-warning" href="' . URLROOT . '/cdn/delete/' . $documents->getFileName() . '" role="button">Apagar no CDN</a>';
+} else {
+  //echo '<a class="btn btn-warning disabled" href="' . URLROOT . '/cdn/delete/' . $documents->getFileName() . '" role="button" aria-disabled="true">Apagar no CDN</a>';
+}
+?>
 </form>
 </div>
 </div>
 </div>
 <!--
 <center>
-  <object data="<?php echo URLROOT; ?>/pdf/<?php echo $documents->getFileName(); ?>" type="application/pdf" width="800px" height="800px">
+  <object data="<?php echo URLROOT; ?>/files/<?php echo $documents->getFileName(); ?>" type="application/pdf" width="800px" height="800px">
     <p>Seu navegador não tem um plugin pra PDF</p>
   </object>
 </center>

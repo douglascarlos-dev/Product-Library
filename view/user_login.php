@@ -16,13 +16,8 @@
   <body>
   <div class="mx-auto text-center col-md-8 order-md-1">
     <img src="<?php echo URLROOT; ?>/img/5138237.svg" height="200" width="274" alt="Contato">
-    <h4>Library</h4>
-    <p>-</p>
-    <p>Demonstração
-    <br>
-    <b>Usuário:</b> admin
-    <br>
-    <b>Senha:</b> admin</p>
+    <h4>Product Library</h4>
+    <p>Biblioteca de imagens, vídeos e PDF para e-commerce</p>
     <div class="card">
       <div class="card-body">
         <form name="entrar" action="<?php echo URLROOT; ?>/user/login" method="post">
@@ -38,10 +33,7 @@
           </div>
           <div class="form-row">
             <div class="form-group col-md-6">
-                <div class="h-captcha" data-sitekey="<?php
-$params = require "model/database.php";
-echo $params['captcha_data-sitekey'];
-?>"></div>
+                <?php  if ($settings->getHcaptcha() == 1) { ?><div class="h-captcha" data-sitekey="<?php echo $settings->getHcaptchaDataSitekey(); ?>"></div><?php } ?>
             </div>
             <div class="form-group col-md-6">
                 <button type="submit" class="btn btn-primary">Entrar</button>
@@ -50,16 +42,17 @@ echo $params['captcha_data-sitekey'];
         </form>
       </div>
     </div>
-       <footer class="pt-4 my-md-5 pt-md-5 border-top">
-        <div class="row">
-          <div class="col-12 col-md">
-            <small class="d-block mb-3 text-muted text-center">© 2023<br><a href="https://github.com/douglascarlos-dev" target="_blank"><img src="<?php echo URLROOT; ?>/img/logo.svg" alt="HTML tutorial" style="height:35px;"></a></small>
-          </div>
+    <footer class="pt-3 my-md-2">
+      <div class="row">
+        <div class="col-12 col-md">
+          <small class="d-block mb-3 text-muted text-center">© 2023<br><a href="https://github.com/douglascarlos-dev/Product-Library" target="_blank"><img src="<?php echo URLROOT; ?>/img/logo.svg" alt="HTML tutorial" style="height:35px;"></a></small>
         </div>
-      </footer>
+      </div>
+    </footer>
   </div>
 <script type="text/javascript" src="<?php echo URLROOT; ?>/js/jquery-3.5.1.slim.min.js"></script>
 <script src="<?php echo URLROOT; ?>/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-<script src='https://www.hCaptcha.com/1/api.js' async defer></script>
+<script src='https://js.hcaptcha.com/1/api.js' async defer></script>
+
 </body>
 </html>

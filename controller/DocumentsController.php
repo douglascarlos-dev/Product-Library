@@ -1,6 +1,7 @@
 <?php
 
 require_once 'model/documentsModel.php';
+require_once 'model/settingsModel.php';
 
 class DocumentsController {
 
@@ -39,14 +40,14 @@ class DocumentsController {
             $file_tmp = $_FILES['document']['tmp_name'];
             $file_type = $_FILES['document']['type'];
             @$file_ext = strtolower(end(explode('.',$_FILES['document']['name'])));
-            $extensions = array("pdf");
+            $extensions = array("pdf","mp4","png","jpg");
 
             $file_name = $this->formatFileName($file_name);
 
             $documents->setFileName($file_name);
 
             if(in_array($file_ext,$extensions)=== false){
-                $errors[]="Extension not allowed, please choose a PDF file.";
+                $errors[]="Extension not allowed.";
             }
             if($file_size > 10000000){
                 $errors[]="File size must be excately 10 MB.";
@@ -57,7 +58,7 @@ class DocumentsController {
 
 
             if(empty($errors)==true){
-                move_uploaded_file($file_tmp,"pdf/".$file_name);
+                move_uploaded_file($file_tmp,"files/".$file_name);
                 $documents->post_documents_new();
             } else {
                 print_r($errors);
@@ -72,6 +73,8 @@ class DocumentsController {
         $documents = new Documents();
         $documents->setFileName($file_name);
         $documents = $documents->documents_list();
+        $settings = new Settings();
+        $settings = $settings->settings_list();
         require_once 'view/documents_edit.php';
     }
 
@@ -82,6 +85,13 @@ class DocumentsController {
         $documents->setDescription($_REQUEST['descricao']);
         $documents->post_documents_update();
         DocumentsController::edit($documents->getFileName());
+    }
+
+    public static function cdn( $file_name, $cdn ) {
+        $documents = new Documents();
+        $documents->setFileName($file_name);
+        $documents->setCdn($cdn);
+        $documents->post_documents_update_cdn();
     }
 
     public function fileupdate( $file_name ) {
@@ -102,14 +112,14 @@ class DocumentsController {
             $file_tmp = $_FILES['document']['tmp_name'];
             $file_type = $_FILES['document']['type'];
             @$file_ext = strtolower(end(explode('.',$_FILES['document']['name'])));
-            $extensions = array("pdf");
+            $extensions = array("pdf","mp4","png","jpg");
 
             //$file_name = $this->formatFileName($file_name);
 
             //$documents->setFileName($file_name);
 
             if(in_array($file_ext,$extensions)=== false){
-                $errors[]="Extension not allowed, please choose a PDF file.";
+                $errors[]="Extension not allowed, please choose a file.";
             }
             if($file_size > 10000000){
                 $errors[]="File size must be excately 10 MB.";
@@ -120,8 +130,8 @@ class DocumentsController {
 
 
             if(empty($errors)==true){
-                unlink("pdf/".$file_name);
-                move_uploaded_file($file_tmp,"pdf/".$file_name);
+                unlink("files/".$file_name);
+                move_uploaded_file($file_tmp,"files/".$file_name);
                 //$documents->post_documents_new();
                 $documents->post_documents_update();
             } else {

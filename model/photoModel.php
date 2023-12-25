@@ -42,7 +42,7 @@ class Photo extends Connection {
         return $this;
     }
     public function setCreated($created){
-        $created = date("d/m/Y H:i", strtotime($created));
+        //$created = date("d/m/Y H:i", strtotime($created));
         $this->created=$created;
         return $this;
     }
@@ -84,6 +84,11 @@ class Photo extends Connection {
     }
     public function getStockKeepingUnit(){
         return $this->stock_keeping_unit;
+    }
+
+    function formatDate($date){
+        $date = date("d/m/Y H:i", strtotime($date));
+        return $date;
     }
 
     function convertToReadableSize($size){

@@ -1,6 +1,7 @@
 <?php
 
 require_once 'model/userModel.php';
+require_once 'model/settingsModel.php';
 
 class UserController{
 
@@ -10,6 +11,8 @@ class UserController{
         } else {
             #header("Location: ./user");
             #echo " sessao expirada ou não logada. acesse /user para logar";
+            $settings = new Settings();
+            $settings = $settings->settings_list();
             require_once 'view/user_login.php';
             exit;
             #$this->visualizar();
@@ -17,11 +20,15 @@ class UserController{
     }
 
     public function visualizar() {
+        $settings = new Settings();
+        $settings = $settings->settings_list();
         require_once 'view/user_login.php';
     }
 
     public function teste2() {
         unset($_SESSION['username']);
+        $settings = new Settings();
+        $settings = $settings->settings_list();
         require_once 'view/user_login.php';
     }
 
@@ -53,24 +60,30 @@ class UserController{
             ];
 
             //Validate hcaptcha
-            $params = require "model/database.php";
-            $data_captcha = array(
-                'secret' => $params['captcha_secret'],
-                'response' => @$_POST['h-captcha-response']
-                    );
-            $verify = curl_init();
-            curl_setopt($verify, CURLOPT_URL, "https://hcaptcha.com/siteverify");
-            curl_setopt($verify, CURLOPT_POST, true);
-            curl_setopt($verify, CURLOPT_POSTFIELDS, http_build_query($data_captcha));
-            curl_setopt($verify, CURLOPT_RETURNTRANSFER, true);
-            $response = curl_exec($verify);
-            // var_dump($response);
-            $responseData = json_decode($response);
-            if($responseData->success) {
+            $settings = new Settings();
+            $settings = $settings->settings_list();
+            $secret = $settings->getHcaptchaSecret();
+            if ($settings->getHcaptcha() == 1) {
+                $data_captcha = array(
+                    'secret' => $secret,
+                    'response' => @$_POST['h-captcha-response']
+                        );
+                $verify = curl_init();
+                curl_setopt($verify, CURLOPT_URL, "https://hcaptcha.com/siteverify");
+                curl_setopt($verify, CURLOPT_POST, true);
+                curl_setopt($verify, CURLOPT_POSTFIELDS, http_build_query($data_captcha));
+                curl_setopt($verify, CURLOPT_RETURNTRANSFER, true);
+                $response = curl_exec($verify);
+                // var_dump($response);
+                $responseData = json_decode($response);
+                if($responseData->success) {
+                    $data['captcha'] = true;
+                } 
+                else {
+                    $data['captcha'] = false;
+                }
+            } else {
                 $data['captcha'] = true;
-            } 
-            else {
-                $data['captcha'] = false;
             }
 
             //Validate username
@@ -92,9 +105,13 @@ class UserController{
                 } else {
                     $data['passwordError'] = 'Password or username is incorrect. Please try again.';
 
+                    $settings = new Settings();
+                    $settings = $settings->settings_list();
                     require_once 'view/user_login.php';
                 }
             } else {
+                $settings = new Settings();
+                $settings = $settings->settings_list();
                 require_once 'view/user_login.php';
             }
 
