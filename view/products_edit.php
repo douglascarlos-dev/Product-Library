@@ -106,7 +106,7 @@ foreach($video as &$video_value):
         <div class="form-group col-md-2">
           <center><a href="<?php echo URLROOT; ?>/video/<?php echo $video_value->getFileName()."?t=".strtotime($video_value->getCreated()); ?>" target="_blank"><img src="<?php echo URLROOT; ?><?php
           if($video_value->getFileNameThumbnail() == ""){
-            echo "/img/mp4.svg";
+            echo "/img/mp4-v1.svg";
           } else {
             echo "/video/" . $video_value->getFileNameThumbnail()."?t=".strtotime($video_value->getCreated());
           }

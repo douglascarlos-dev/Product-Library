@@ -1,0 +1,38 @@
+<svg id="Camada_1" data-name="Camada 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 283.46457 283.46457">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #1d1d1b;
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+
+      .cls-3 {
+        fill: #ea5a2a;
+      }
+    </style>
+  </defs>
+  <g>
+    <rect class="cls-1" x="3.39241" y="3.23713" width="276.59406" height="276.59406" rx="17.00787"/>
+    <rect class="cls-2" x="15.38247" y="53.03911" width="252.61394" height="178.69307" rx="17.00787"/>
+    <circle class="cls-3" cx="141.68944" cy="142.95" r="63.77953"/>
+    <circle class="cls-2" cx="141.68944" cy="142.38565" r="52.44094"/>
+    <polygon class="cls-3" points="174.525 143.198 151.779 155.322 124.854 170.867 124.854 139.131 124.854 114.308 174.525 143.198"/>
+    <g>
+      <rect class="cls-2" x="81.16221" y="18.60347" width="25.9901" height="19.22772" rx="2.83465"/>
+      <rect class="cls-2" x="32.53845" y="18.60347" width="25.9901" height="19.22772" rx="2.83465"/>
+      <rect class="cls-2" x="128.37508" y="18.60347" width="25.9901" height="19.22772" rx="2.83465"/>
+      <rect class="cls-2" x="176.37508" y="18.60347" width="25.9901" height="19.22772" rx="2.83465"/>
+      <rect class="cls-2" x="224.85033" y="18.60347" width="25.9901" height="19.22772" rx="2.83465"/>
+    </g>
+    <g>
+      <rect class="cls-2" x="81.16221" y="246.9401" width="25.9901" height="19.22772" rx="2.83465"/>
+      <rect class="cls-2" x="32.53845" y="246.9401" width="25.9901" height="19.22772" rx="2.83465"/>
+      <rect class="cls-2" x="128.37508" y="246.9401" width="25.9901" height="19.22772" rx="2.83465"/>
+      <rect class="cls-2" x="176.37508" y="246.9401" width="25.9901" height="19.22772" rx="2.83465"/>
+      <rect class="cls-2" x="224.85033" y="246.9401" width="25.9901" height="19.22772" rx="2.83465"/>
+    </g>
+  </g>
+</svg>
