@@ -25,7 +25,7 @@ Com o Product Library além de cadastrar as imagens do seu produto é possível 
               |    ├── sku_2.mp4
               |    ├── sku_1.mp4
               |    └── sku_2.mp4
-              └── pdf
+              └── files
                    ├── nomeDoArquivo.pdf
                    ├── nomeDoArquivo.pdf
                    ├── nomeDoArquivo.pdf
@@ -49,9 +49,9 @@ Será coletado o tamanho e data de carregamento do arquivo.
 
 Um alerta ⚠️ será exibido para imagens com tamanho fora de especificação.
 
-### PDF
+### Files
 
-Os PDF serão armazenados dentro da pasta pdf com o mesmo nome do arquivo carregado.
+Os arquivos serão armazenados dentro da pasta files com o mesmo nome do arquivo carregado.
 Caracteres especiais serão removidos do nome do arquivo.
 Será coletado o tamanho e data de carregamento do arquivo.
 
