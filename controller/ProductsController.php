@@ -52,4 +52,10 @@ class ProductsController {
         ProductsController::visualizar();
     }
 
+    public function search() {
+        $products = new Products();
+        $products->setDescription($_REQUEST['search']);
+        require_once 'view/products_search.php';
+    }
+
 }

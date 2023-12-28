@@ -132,6 +132,24 @@ class Products extends Connection {
         return $result;
     }
 
+    function database_select_all_var($valor1, $valor3){
+        $pdo = $this->o_db;
+        $stmt = $pdo->prepare("SELECT * FROM $valor1 WHERE description ILIKE '%$valor3%' or stock_keeping_unit ILIKE '%$valor3%' ORDER BY description"); 
+        $stmt->execute(); 
+        $row = $stmt->fetchAll();
+        return $row;
+    }
+
+    function products_search(){
+        $consulta = $this->database_select_all_var('products', $this->getDescription());
+        return $consulta;
+    }
+
+    function post_products_search(){
+        $result = $this->products_search();
+        return $result;
+    }
+
 }
 
 ?>
