@@ -49,7 +49,7 @@ Será coletado o tamanho e data de carregamento do arquivo.
 
 Um alerta ⚠️ será exibido para imagens com tamanho fora de especificação.
 
-### Files
+### Arquivos
 
 Os arquivos serão armazenados dentro da pasta files com o mesmo nome do arquivo carregado.
 Caracteres especiais serão removidos do nome do arquivo.
@@ -81,5 +81,10 @@ Substitua SKU pelo SKU do produto.
     }
 }
 ```
-### Extensão de arquivos 
+### Extensão de arquivos
+
 Os arquivos podem ter várias extensões, não apenas as apresentadas aqui.
+
+### CDN
+
+Os arquivos podem ser enviados para a CDN Bunny.
