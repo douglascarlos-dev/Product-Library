@@ -18,11 +18,11 @@
   <div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center col-md-8 order-md-1">
   <div class="card">
     <div class="card-body">
-      <form name="register" action="<?php echo URLROOT; ?>/photo/save/<?php echo $stock_keeping_unit; ?>" method="post" enctype="multipart/form-data">
+      <form action="<?php echo URLROOT; ?>/photo/save/<?php echo $stock_keeping_unit; ?>" method="post" enctype="multipart/form-data">
         <div class="form-row">
           <div class="input-group col-md-12">
             <label for="exampleFormControlFile1">Foto (máximo de 2 MB)</label>     
-            <input type="file" class="form-control-file" id="inputPhoto" name="photo" accept="image/png, image/jpeg">
+            <input type="file" class="form-control-file" id="inputPhoto" name="photo[]" accept="image/png, image/jpeg" multiple >
           </div>
         </div>
         <br><a class="btn btn-outline-primary" href="<?php echo URLROOT; ?>/products/edit/<?php echo $stock_keeping_unit; ?>" role="button">Cancelar</a>
