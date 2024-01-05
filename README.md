@@ -55,7 +55,7 @@ Um alerta ⚠️ será exibido para imagens com tamanho fora de especificação.
 Os arquivos serão armazenados dentro da pasta files com o mesmo nome do arquivo carregado.
 Caracteres especiais serão removidos do nome do arquivo.
 Será coletado o tamanho e data de carregamento do arquivo.
-Arquivos podem ser atualizados mantendo o mesmo endereço.
+Arquivos podem ser atualizados a qualquer momento mantendo o mesmo endereço.
 
 Um alerta ⚠️ será exibido para imagens com tamanho fora de especificação.
 
@@ -89,4 +89,12 @@ Os arquivos podem ter várias extensões, não apenas as apresentadas aqui.
 
 ### CDN
 
-Os arquivos podem ser enviados para a CDN Bunny.
+Os arquivos podem ser enviados para o CDN Bunny.
+
+### Planilha
+
+Através de planilhas é possível exportar, atualizar e cadastrar produtos.
+
+### Domínio
+
+Domínio ou subdomínio personalizado.

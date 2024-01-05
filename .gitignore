@@ -2,3 +2,6 @@
 /model/database.php
 model/database.php
 apiv1.php
+composer.json
+composer.lock
+temp.php
