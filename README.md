@@ -37,6 +37,7 @@ Com o Product Library além de cadastrar as imagens do seu produto é possível 
 As fotos de um produto serão armazenadas dentro de uma pasta nomeada com o SKU do produto dentro da pasta foto.
 Os arquivos serão nomeado com o SKU seguido de Underline ( _ ) e uma sequência numérica.
 Será coletado a altura, largura, tamanho e data de carregamento do arquivo.
+Varias fotos podem ser carregadas simultaneamente.
 
 Um alerta ⚠️ será exibido para imagens com dimensões ou tamanho fora de especificação.
 
@@ -54,6 +55,7 @@ Um alerta ⚠️ será exibido para imagens com tamanho fora de especificação.
 Os arquivos serão armazenados dentro da pasta files com o mesmo nome do arquivo carregado.
 Caracteres especiais serão removidos do nome do arquivo.
 Será coletado o tamanho e data de carregamento do arquivo.
+Arquivos podem ser atualizados mantendo o mesmo endereço.
 
 Um alerta ⚠️ será exibido para imagens com tamanho fora de especificação.
 

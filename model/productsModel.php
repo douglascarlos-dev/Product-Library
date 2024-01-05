@@ -51,13 +51,14 @@ class Products extends Connection {
     }
 
     function get_all_products(){
-        $consulta = $this->database_select_all('products');
+        $consulta = $this->database_select_all();
         return $consulta;
     }
 
-    function database_select_all($valor1){
+    function database_select_all(){
         $pdo = $this->o_db;
-        $stmt = $pdo->prepare("SELECT * FROM $valor1 ORDER BY id"); 
+        //$stmt = $pdo->prepare("SELECT * FROM $valor1 ORDER BY description");
+        $stmt = $pdo->prepare("SELECT products.id, stock_keeping_unit, description, COUNT(stock_keeping_unit) FROM products INNER JOIN photo ON products.id = photo.id_products GROUP BY stock_keeping_unit, description, products.id ORDER BY description"); 
         $stmt->execute(); 
         $row = $stmt->fetchAll();
         return $row;
@@ -91,9 +92,23 @@ class Products extends Connection {
         $products->setDescription($row[2]);
         return $products;
     }
+    function products_list_id(){
+        $pdo = $this->o_db;
+        $stmt = $pdo->prepare("SELECT * FROM products WHERE id = '" . $this->getId() . "' LIMIT 1"); 
+        $stmt->execute(); 
+        $row = $stmt->fetch();
+        $products = new Products();
+        $products->setStockKeepingUnit($row[1]);
+        $products->setDescription($row[2]);
+        return $products;
+    }
 
     function post_products_update(){
         $result = $this->products_update();
+        return $result;
+    }
+    function post_products_id_update(){
+        $result = $this->products_id_update();
         return $result;
     }
 
@@ -103,6 +118,24 @@ class Products extends Connection {
         $date = $date->format('Y-m-d H:i:s O');
         $sql_query = "SELECT * FROM products_update_function
                         (
+                            '" . $this->getStockKeepingUnit() . "',
+                            '" . $this->getDescription() . "',
+                            '" . $date . "'
+                        )";
+        $pdo = $this->o_db;
+        $stmt = $pdo->prepare($sql_query);
+        $stmt->execute();
+        $row = $stmt->fetch();
+        return $row;
+    }
+
+    function products_id_update(){
+        date_default_timezone_set('America/Sao_Paulo');
+        $date = new DateTimeImmutable();
+        $date = $date->format('Y-m-d H:i:s O');
+        $sql_query = "SELECT * FROM products_id_update_function
+                        (
+                            '" . $this->getId() . "',
                             '" . $this->getStockKeepingUnit() . "',
                             '" . $this->getDescription() . "',
                             '" . $date . "'

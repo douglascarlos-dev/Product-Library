@@ -4,103 +4,87 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit20edd75569bb874ba46417bf06ea3dc3
+class ComposerStaticInit12b83db69ae719fb8e7bfc18f4dcdb1a
 {
+    public static $files = array (
+        '2cffec82183ee1cea088009cef9a6fc3' => __DIR__ . '/..' . '/ezyang/htmlpurifier/library/HTMLPurifier.composer.php',
+    );
+
     public static $prefixLengthsPsr4 = array (
-        'S' => 
+        'Z' => 
         array (
-            'Symfony\\Contracts\\Service\\' => 26,
-            'Symfony\\Contracts\\Cache\\' => 24,
-            'Symfony\\Component\\VarExporter\\' => 30,
-            'Symfony\\Component\\Process\\' => 26,
-            'Symfony\\Component\\Cache\\' => 24,
-            'Spatie\\TemporaryDirectory\\' => 26,
+            'ZipStream\\' => 10,
         ),
         'P' => 
         array (
-            'Psr\\Log\\' => 8,
-            'Psr\\Container\\' => 14,
-            'Psr\\Cache\\' => 10,
+            'Psr\\SimpleCache\\' => 16,
+            'Psr\\Http\\Message\\' => 17,
+            'Psr\\Http\\Client\\' => 16,
+            'PhpOffice\\PhpSpreadsheet\\' => 25,
         ),
-        'F' => 
+        'M' => 
         array (
-            'FFMpeg\\' => 7,
+            'Matrix\\' => 7,
         ),
-        'A' => 
+        'C' => 
         array (
-            'Alchemy\\BinaryDriver\\' => 21,
+            'Complex\\' => 8,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'Symfony\\Contracts\\Service\\' => 
+        'ZipStream\\' => 
         array (
-            0 => __DIR__ . '/..' . '/symfony/service-contracts',
+            0 => __DIR__ . '/..' . '/maennchen/zipstream-php/src',
         ),
-        'Symfony\\Contracts\\Cache\\' => 
+        'Psr\\SimpleCache\\' => 
         array (
-            0 => __DIR__ . '/..' . '/symfony/cache-contracts',
+            0 => __DIR__ . '/..' . '/psr/simple-cache/src',
         ),
-        'Symfony\\Component\\VarExporter\\' => 
+        'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/symfony/var-exporter',
+            0 => __DIR__ . '/..' . '/psr/http-message/src',
+            1 => __DIR__ . '/..' . '/psr/http-factory/src',
         ),
-        'Symfony\\Component\\Process\\' => 
+        'Psr\\Http\\Client\\' => 
         array (
-            0 => __DIR__ . '/..' . '/symfony/process',
+            0 => __DIR__ . '/..' . '/psr/http-client/src',
         ),
-        'Symfony\\Component\\Cache\\' => 
+        'PhpOffice\\PhpSpreadsheet\\' => 
         array (
-            0 => __DIR__ . '/..' . '/symfony/cache',
+            0 => __DIR__ . '/..' . '/phpoffice/phpspreadsheet/src/PhpSpreadsheet',
         ),
-        'Spatie\\TemporaryDirectory\\' => 
+        'Matrix\\' => 
         array (
-            0 => __DIR__ . '/..' . '/spatie/temporary-directory/src',
+            0 => __DIR__ . '/..' . '/markbaker/matrix/classes/src',
         ),
-        'Psr\\Log\\' => 
+        'Complex\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/log/src',
-        ),
-        'Psr\\Container\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/psr/container/src',
-        ),
-        'Psr\\Cache\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/psr/cache/src',
-        ),
-        'FFMpeg\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/php-ffmpeg/php-ffmpeg/src/FFMpeg',
-        ),
-        'Alchemy\\BinaryDriver\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/php-ffmpeg/php-ffmpeg/src/Alchemy/BinaryDriver',
+            0 => __DIR__ . '/..' . '/markbaker/complex/classes/src',
         ),
     );
 
     public static $prefixesPsr0 = array (
-        'E' => 
+        'H' => 
         array (
-            'Evenement' => 
+            'HTMLPurifier' => 
             array (
-                0 => __DIR__ . '/..' . '/evenement/evenement/src',
+                0 => __DIR__ . '/..' . '/ezyang/htmlpurifier/library',
             ),
         ),
     );
 
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
-        '©' => __DIR__ . '/..' . '/symfony/cache/Traits/ValueWrapper.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit20edd75569bb874ba46417bf06ea3dc3::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit20edd75569bb874ba46417bf06ea3dc3::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit20edd75569bb874ba46417bf06ea3dc3::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit20edd75569bb874ba46417bf06ea3dc3::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit12b83db69ae719fb8e7bfc18f4dcdb1a::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit12b83db69ae719fb8e7bfc18f4dcdb1a::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit12b83db69ae719fb8e7bfc18f4dcdb1a::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit12b83db69ae719fb8e7bfc18f4dcdb1a::$classMap;
 
         }, null, ClassLoader::class);
     }

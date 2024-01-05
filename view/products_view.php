@@ -15,19 +15,20 @@
 }
       </style>
 
-      
+  <script src="https://kit.fontawesome.com/14edfcae2f.js" crossorigin="anonymous"></script>
   </head>
   <body>
   <?php require_once 'menu.php'; ?>
   
 <div class="container">
   <div class="input-group mb-3">
-    <div class="form-group col-md-3">
-      <div class="px-3">
+    <div class="form-group col-md-2">
+      <div class="px-2">
         <center><a class="btn btn-primary" href="<?php echo URLROOT; ?>/products/new/" role="button">Novo Produto</a></center>
       </div>
     </div>
-    <div class="form-group col-md-8">
+    
+    <div class="form-group col-md-9">
       <form action="<?php echo URLROOT; ?>/products/search" method="post">
         <div class="input-group">
           <input type="text" class="form-control" id="inputSearch" name="search" placeholder="Nome ou SKU do Produto" maxlength="100" autofocus>
@@ -36,6 +37,11 @@
             </div>
         </div>
       </form>
+    </div>
+    <div class="form-group col-md-1">
+      <div class="px-2">
+        <center><a class="btn btn-success" href="<?php echo URLROOT; ?>/products/spreadsheet/" role="button">Planilha</a></center>
+      </div>
     </div>
   </div>
 </div>
@@ -61,9 +67,10 @@ if(count($resultado) >= 1){
         
     <div class="container">
     <div class="row">
-      <div class="col p-2"><b>SKU</b></div>
-      <div class="col p-2"><b>descrição</b></div>
-      <div class="col p-2"><b>Ações</b></div>
+      <div class="col p-2 col-md-2"><b>SKU</b></div>
+      <div class="col p-2"><b>Descrição</b></div>
+      <div class="col p-2 col-md-1"><b>Fotos</b></div>
+      <div class="col p-2 col-md-2"><b>Ações</b></div>
  
 
       <?php
@@ -71,9 +78,10 @@ if(count($resultado) >= 1){
 foreach($resultado as &$value):
     ?>
       <div class="w-100"></div>
-      <div class="col<?php echo !($i % 2) ? " bg-light text-dark p-2" : " p-2"; ?>"><?php echo $value["stock_keeping_unit"]; ?></div>  
-      <div class="col<?php echo !($i % 2) ? " bg-light text-dark p-2" : " p-2"; ?>"><?php echo $value["description"]; ?></div>  
-      <div class="col<?php echo !($i % 2) ? " bg-light text-dark p-2" : " p-2"; ?>"><a class="btn btn-primary btn-xs" href="<?php echo URLROOT; ?>/products/edit/<?php echo $value["stock_keeping_unit"]; ?>">Visualizar</a></div>   
+      <div class="col<?php echo !($i % 2) ? " bg-light text-dark p-2" : " p-2"; ?> col-md-2"><?php echo $value["stock_keeping_unit"]; ?></div>  
+      <div class="col<?php echo !($i % 2) ? " bg-light text-dark p-2" : " p-2"; ?>"><?php echo $value["description"]; ?></div>
+      <div class="col<?php echo !($i % 2) ? " bg-light text-dark p-2" : " p-2"; ?> col-md-1"><?php echo $value["count"]; ?> X <i class="fa-solid fa-image"></i></div>  
+      <div class="col<?php echo !($i % 2) ? " bg-light text-dark p-2" : " p-2"; ?> col-md-2"><a class="btn btn-primary btn-xs" href="<?php echo URLROOT; ?>/products/edit/<?php echo $value["stock_keeping_unit"]; ?>">Visualizar</a></div>   
       
       <?php
       $i++;
