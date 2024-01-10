@@ -125,25 +125,21 @@ class ProductsController {
                 echo '</ol>';
 */
                 $sheetData = $spreadsheet->getActiveSheet()->toArray();
-                //print_r($sheetData);
-                //echo '<br>';
                 if (!empty($sheetData)) {
-                    //echo count($sheetData);
-                    //echo '<br>';
                     $products = new Products();
                     for ($i=1; $i<count($sheetData); $i++) {
                         $products->setId($sheetData[$i][0]);
                         $products->setStockKeepingUnit($sheetData[$i][1]);
                         $products->setDescription($sheetData[$i][2]);
-                        $products->post_products_id_update();
-                        //echo $aa = $sheetData[$i][0];
-                        //echo ' - ';
-                        //echo $bb = $sheetData[$i][1];
-                        //echo ' - ';
-                        //echo $cc = $sheetData[$i][2];
-                        //echo '<br>';
+                        if(is_numeric($products->getId())){
+                            $products->post_products_id_update();
+                        } elseif (($products->getId() == 'C') or ($products->getId() == 'I') or ($products->getId() == '')){
+                            $products->products_insert();
+                        } else {
+                        }
                     }
                 }
+                unlink($inputFileName);
             }
             require_once 'view/products_spreadsheet.php';
 

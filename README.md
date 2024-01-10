@@ -94,6 +94,7 @@ Os arquivos podem ser enviados para o CDN Bunny.
 ### Planilha
 
 Através de planilhas é possível exportar, atualizar e cadastrar produtos.
+\* Não altere o nome do arquivo.
 
 ### Domínio
 

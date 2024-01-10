@@ -24,9 +24,9 @@
   <div class="card">
     <div class="card-body">
       <form action="<?php echo URLROOT; ?>/products/spreadsheet/save" method="post" enctype="multipart/form-data">
-        <div class="form-row">&nbsp;<b>Planilha de Produtos.</b>
+        <div class="form-row">&nbsp;<b>Planilha de Produtos</b>
           <div class="input-group col-md-12">
-            <label for="exampleFormControlFile1">Atualize os produtos a partir de um relátorio em planilha.</label>     
+            <label for="exampleFormControlFile1">Atualize ou cadastre os produtos a partir de um relátorio em planilha.</label>     
             <input type="file" class="form-control-file" id="inputPlanilha" name="planilha" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" >
           </div>
         </div>
@@ -36,7 +36,7 @@
             <label for="exampleFormControlFile1"><a class="ext-dark" href="<?php echo URLROOT; ?>/products/spreadsheet/download">Clique aqui <i class="fa-solid fa-file" style="color: #28a745;"></i> para baixar o relátorio atual.</a></label>     
           </div>
         </div>
-        <br><a class="btn btn-outline-primary" href="<?php echo URLROOT; ?>/products" role="button">Cancelar</a>
+        <br><a class="btn btn-warning" href="<?php echo URLROOT; ?>/products" role="button">Cancelar</a>
         <button type="submit" class="btn btn-primary">Carregar</button> 
       </form>
     </div>

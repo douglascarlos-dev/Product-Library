@@ -58,7 +58,7 @@ class Products extends Connection {
     function database_select_all(){
         $pdo = $this->o_db;
         //$stmt = $pdo->prepare("SELECT * FROM $valor1 ORDER BY description");
-        $stmt = $pdo->prepare("SELECT products.id, stock_keeping_unit, description, COUNT(stock_keeping_unit) FROM products INNER JOIN photo ON products.id = photo.id_products GROUP BY stock_keeping_unit, description, products.id ORDER BY description"); 
+        $stmt = $pdo->prepare("SELECT id, stock_keeping_unit, description, COALESCE(count, 0) AS count FROM products LEFT join (select id_products, COUNT(id_products) from photo GROUP by id_products) photo on products.id = photo.id_products GROUP BY stock_keeping_unit, description, products.id, count ORDER BY description"); 
         $stmt->execute(); 
         $row = $stmt->fetchAll();
         return $row;
