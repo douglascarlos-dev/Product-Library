@@ -160,8 +160,8 @@ class Photo extends Connection {
         $row = $stmt->fetch();
         $thumbnail = $row[0];
 
-        @unlink("foto/".$this->getStockKeepingUnit()."/".$this->getFileName());
-        @unlink("foto/".$this->getStockKeepingUnit()."/".$thumbnail);
+        unlink("foto/".$this->getStockKeepingUnit()."/".$this->getFileName());
+        unlink("foto/".$this->getStockKeepingUnit()."/".$thumbnail);
         //@rmdir("foto/".$this->getStockKeepingUnit());
         $sql_query = "SELECT * FROM photo_delete
                         (

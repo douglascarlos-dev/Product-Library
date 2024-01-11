@@ -559,7 +559,7 @@ END;]]></definition>
 	<role name="postgres"/>
 </sequence>
 
-<table name="documents" layers="0" collapse-mode="2" max-obj-count="10" z-value="0">
+<table name="documents" layers="0" collapse-mode="2" max-obj-count="12" z-value="0">
 	<schema name="public"/>
 	<role name="postgres"/>
 	<position x="460" y="380"/>
@@ -589,6 +589,9 @@ END;]]></definition>
 	</column>
 	<column name="cdn">
 		<type name="boolean" length="0"/>
+	</column>
+	<column name="views" default-value="0">
+		<type name="integer" length="0"/>
 	</column>
 	<constraint name="documents_pk" type="pk-constr" table="public.documents">
 		<columns names="id" ref-type="src-columns"/>

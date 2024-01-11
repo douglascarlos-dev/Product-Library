@@ -87,6 +87,15 @@ class DocumentsController {
         DocumentsController::edit($documents->getFileName());
     }
 
+    public function update_views( $file_name ) {
+        /* $documents = new Documents();
+        $documents->setFileName($file_name);
+        $documents = $documents->documents_list();
+        $documents->setDescription($_REQUEST['descricao']);
+        $documents->post_documents_update();
+        DocumentsController::edit($documents->getFileName()); */
+    }
+
     public static function cdn( $file_name, $cdn ) {
         $documents = new Documents();
         $documents->setFileName($file_name);

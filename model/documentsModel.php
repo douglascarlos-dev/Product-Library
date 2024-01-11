@@ -11,6 +11,7 @@ class Documents extends Connection {
     private $created;
     private $updated;
     private $cdn;
+    private $views;
 
     public function setId($id){
         $this->id=$id;
@@ -47,6 +48,11 @@ class Documents extends Connection {
         return $this;
     }
 
+    public function setViews($views){
+        $this->views=$views;
+        return $this;
+    }
+
     public function getId()
     {
         return $this->id;
@@ -75,6 +81,10 @@ class Documents extends Connection {
     public function getCdn()
     {
         return $this->cdn;
+    }
+    public function getViews()
+    {
+        return $this->views;
     }
 
     public function formatDate($date){
@@ -144,6 +154,7 @@ class Documents extends Connection {
         $documents->setCreated($row[6]);
         $documents->setUpdated($row[7]);
         $documents->setCdn($row[8]);
+        $documents->setViews($row[9]);
         return $documents;
     }
 
@@ -155,6 +166,15 @@ class Documents extends Connection {
     function post_documents_update_cdn(){
         $result = $this->documents_update_cdn();
         return $result;
+    }
+
+    function documents_update_views(){
+        $sql_query = "UPDATE documents SET views = " . ($this->getViews() + 1) . " WHERE file_name = '" . $this->getFileName() . "'";
+        $pdo = $this->o_db;
+        $stmt = $pdo->prepare($sql_query);
+        $stmt->execute();
+        $row = $stmt->fetch();
+        return $row;
     }
 
     function documents_update_cdn(){

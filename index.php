@@ -1,4 +1,5 @@
 <?php
+session_cache_limiter(false);
 session_start();
 
 define('URLROOT', '/' . basename(__DIR__));
@@ -10,7 +11,8 @@ $url = (isset($_GET['url'])) ? $_GET['url']:'';
 $url = array_filter(explode('/',$url));
 @$classe = ucfirst($url[0]);
 
-if($classe != 'User'){
+if ($classe == 'Files'){
+} elseif ($classe != 'User'){
     $usuario->isLoggedIn();
 }
 

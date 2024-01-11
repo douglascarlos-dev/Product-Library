@@ -25,12 +25,12 @@ class UserController{
         require_once 'view/user_login.php';
     }
 
-    public function teste2() {
+    /* public function teste2() {
         unset($_SESSION['username']);
         $settings = new Settings();
         $settings = $settings->settings_list();
         require_once 'view/user_login.php';
-    }
+    } */
 
     //Load the view (checks for the file)
     public static function view($view, $data = []) {

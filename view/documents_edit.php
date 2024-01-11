@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/bootstrap.min.css" crossorigin="anonymous">
+    <meta http-equiv="Cache-Control" content="No-Cache">
+    <meta http-equiv="Pragma" content="No-Cache">
+    <meta http-equiv="Expires" content="0">
 
     <title>Library</title>
 
@@ -88,15 +91,19 @@ function Mask($mask,$str){
     </div>
   </div>
   <div class="form-row">
-    <div class="form-group col-md-12">
-        <label for="inputSku">URL do Documento</label>
-        <input type="text" class="form-control" id="inputSku" name="sku" value="<?php echo "http://" . $_SERVER['SERVER_NAME']; ?><?php echo URLROOT; ?>/files/<?php echo $documents->getFileName(); ?>" maxlength="100" readonly>
+    <div class="form-group col-md-10">
+        <label for="inputSku">URL do Arquivo</label>
+        <input type="text" class="form-control" id="inputSku" name="sku" value="<?php echo "http://" . $_SERVER['SERVER_NAME']; ?><?php echo URLROOT; ?>/files/download/<?php echo $documents->getFileName(); ?>" maxlength="100" readonly>
+    </div>
+    <div class="form-group col-md-2">
+      <label for="inputSku">Views</label>
+      <input type="text" class="form-control" id="inputvVews" name="views" value="<?php echo $documents->getViews(); ?>" readonly>
     </div>
   </div>
   <?php if ($documents->getCdn() == 1 & $settings->getBunny() == 1) { ?>
   <div class="form-row">
     <div class="form-group col-md-12">
-        <label for="inputSku">URL do Documento no CDN</label>
+        <label for="inputSku">URL do Arquivo no CDN</label>
         <input type="text" class="form-control" id="inputSku" name="sku" value="<?php echo $settings->getBunnyLinkedHostname(); ?>/files/<?php echo $documents->getFileName(); ?>" maxlength="100" readonly>
     </div>
   </div>
