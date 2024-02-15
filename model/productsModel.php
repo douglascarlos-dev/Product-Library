@@ -49,16 +49,45 @@ class Products extends Connection {
     {
         return $this->updated;
     }
-
-    function get_all_products(){
+/*
+    function get_all_products3(){
         $consulta = $this->database_select_all();
         return $consulta;
     }
 
-    function database_select_all(){
+    function get_all_products2( $array ){
+        $consulta = $this->database_select_all2( $array );
+        return $consulta;
+    }
+*/
+    function get_all_products( $campo, $ordem ){
+        $consulta = $this->database_select_all( $campo, $ordem );
+        return $consulta;
+    }
+
+    function database_select_all3(){
         $pdo = $this->o_db;
         //$stmt = $pdo->prepare("SELECT * FROM $valor1 ORDER BY description");
-        $stmt = $pdo->prepare("SELECT id, stock_keeping_unit, description, COALESCE(count, 0) AS count FROM products LEFT join (select id_products, COUNT(id_products) from photo GROUP by id_products) photo on products.id = photo.id_products GROUP BY stock_keeping_unit, description, products.id, count ORDER BY description"); 
+        $stmt = $pdo->prepare("SELECT id, stock_keeping_unit, description, COALESCE(count, 0) AS count FROM products LEFT join (select id_products, COUNT(id_products) from photo GROUP by id_products) photo on products.id = photo.id_products GROUP BY stock_keeping_unit, description, products.id, count ORDER BY description ASC"); 
+        $stmt->execute(); 
+        $row = $stmt->fetchAll();
+        return $row;
+    }
+
+    function database_select_all2( $array ){
+        $pdo = $this->o_db;
+        //$stmt = $pdo->prepare("SELECT * FROM $valor1 ORDER BY description");
+        $stmt = $pdo->prepare("SELECT id, stock_keeping_unit, description, COALESCE(count, 0) AS count FROM products LEFT join (select id_products, COUNT(id_products) from photo GROUP by id_products) photo on products.id = photo.id_products GROUP BY stock_keeping_unit, description, products.id, count ORDER BY description $array[1]"); 
+        $stmt->execute(); 
+        $row = $stmt->fetchAll();
+        return $row;
+    }
+
+    function database_select_all( $campo, $ordem ){
+        
+        $pdo = $this->o_db;
+        //$stmt = $pdo->prepare("SELECT * FROM $valor1 ORDER BY description");
+        $stmt = $pdo->prepare("SELECT id, stock_keeping_unit, description, COALESCE(count, 0) AS count FROM products LEFT join (select id_products, COUNT(id_products) from photo GROUP by id_products) photo ON products.id = photo.id_products GROUP BY stock_keeping_unit, description, products.id, count ORDER BY $campo $ordem"); 
         $stmt->execute(); 
         $row = $stmt->fetchAll();
         return $row;
@@ -165,21 +194,27 @@ class Products extends Connection {
         return $result;
     }
 
-    function database_select_all_var($valor1, $valor3){
+    function database_select_all_var( $busca, $campo, $ordem){
         $pdo = $this->o_db;
-        $stmt = $pdo->prepare("SELECT * FROM $valor1 WHERE description ILIKE '%$valor3%' or stock_keeping_unit ILIKE '%$valor3%' ORDER BY description"); 
+        $stmt = $pdo->prepare("SELECT id, stock_keeping_unit, description, COALESCE(count, 0) AS count
+        FROM products
+        LEFT join (select id_products, COUNT(id_products) from photo GROUP by id_products) photo
+        ON products.id = photo.id_products
+        WHERE description ILIKE '%$busca%' OR stock_keeping_unit ILIKE '%$busca%'
+        GROUP BY stock_keeping_unit, description, products.id, count
+        ORDER BY $campo $ordem"); 
         $stmt->execute(); 
         $row = $stmt->fetchAll();
         return $row;
     }
 
-    function products_search(){
-        $consulta = $this->database_select_all_var('products', $this->getDescription());
+    function products_search( $campo, $ordem ){
+        $consulta = $this->database_select_all_var( $this->getDescription(), $campo, $ordem );
         return $consulta;
     }
 
-    function post_products_search(){
-        $result = $this->products_search();
+    function post_products_search( $campo, $ordem ){
+        $result = $this->products_search( $campo, $ordem );
         return $result;
     }
 

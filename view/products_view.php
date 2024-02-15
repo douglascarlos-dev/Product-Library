@@ -61,7 +61,12 @@ function Mask($mask,$str){
   return $mask;
 }
 
-$resultado = $products->get_all_products();
+//$campo = "description";
+//$ordem = "asc";
+//$ordem = @$_REQUEST['ordem'];
+
+//$resultado = $products->get_all_products3( $array );
+$resultado = $products->get_all_products( $campo, $ordem );
 if(count($resultado) >= 1){
 ?>
 
@@ -70,9 +75,9 @@ if(count($resultado) >= 1){
         
     <div class="container">
     <div class="row">
-      <div class="col p-2 col-md-2"><b>SKU</b></div>
-      <div class="col p-2"><b>Descrição</b></div>
-      <div class="col p-2 col-md-1"><b>Fotos</b></div>
+    <div class="col p-2 col-md-2"><form id="sku" method="POST" action="<?php echo URLROOT; ?>/products/visualizar"><input type="hidden" name="field" value="stock_keeping_unit"><input type="hidden" name="ordem" value="<?php if ($ordem === "desc") { echo "asc"; } else { echo "desc"; } ?>"><b>SKU<a href="javascript:document.getElementById('sku').submit();"><img src="<?php echo URLROOT; ?>/img/ordenar.png" width="16" height="16"></a></form></b></div>
+      <div class="col p-2"><form id="description" method="POST" action="<?php echo URLROOT; ?>/products/visualizar"><input type="hidden" name="field" value="description"><input type="hidden" name="ordem" value="<?php if ($ordem === "desc") { echo "asc"; } else { echo "desc"; } ?>"><b>Descrição<a href="javascript:document.getElementById('description').submit();"><img src="<?php echo URLROOT; ?>/img/ordenar.png" width="16" height="16"></a></form></b></div>
+      <div class="col p-2 col-md-1"><form id="picture" method="POST" action="<?php echo URLROOT; ?>/products/visualizar"><input type="hidden" name="field" value="count"><input type="hidden" name="ordem" value="<?php if ($ordem === "desc") { echo "asc"; } else { echo "desc"; } ?>"><b>Fotos<a href="javascript:document.getElementById('picture').submit();"><img src="<?php echo URLROOT; ?>/img/ordenar.png" width="16" height="16"></a></form></b></div>
       <div class="col p-2 col-md-2"><b>Ações</b></div>
  
 

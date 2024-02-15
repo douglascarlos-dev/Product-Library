@@ -9,8 +9,31 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class ProductsController {
 
+    /*
+    public function visualizar3() {
+        $products = new Products();
+        require_once 'view/products_view.php';
+    }
+
+    public function visualizar2( $array ) {
+        $products = new Products();
+        require_once 'view/products_view.php';
+    }
+    */
+
     public function visualizar() {
         $products = new Products();
+
+        $campo = "description";
+        if(isset($_REQUEST['field'])){
+            $campo = @$_REQUEST['field'];
+        }
+
+        $ordem = "asc";
+        if(isset($_REQUEST['ordem'])){
+            $ordem = @$_REQUEST['ordem'];
+        }
+
         require_once 'view/products_view.php';
     }
 
@@ -45,7 +68,7 @@ class ProductsController {
             $spreadsheet->getActiveSheet()->getCell('C1')->setValue($richText3);
 
             $products = new Products();
-            $resultado = $products->get_all_products();
+            $resultado = $products->get_all_products( 'description', 'asc' );
             if(count($resultado) >= 1){
                 $i = 2;
                 foreach($resultado as &$value){
@@ -188,6 +211,18 @@ class ProductsController {
 
     public function search() {
         $products = new Products();
+
+        $campo = "description";
+        if(isset($_REQUEST['field'])){
+            $campo = @$_REQUEST['field'];
+        }
+
+        $ordem = "asc";
+        if(isset($_REQUEST['ordem'])){
+            $ordem = @$_REQUEST['ordem'];
+        }
+
+        //$products = new Products();
         $products->setDescription($_REQUEST['search']);
         require_once 'view/products_search.php';
     }

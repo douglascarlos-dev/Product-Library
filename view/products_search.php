@@ -18,7 +18,7 @@
 }
       </style>
 
-      
+  <script src="https://kit.fontawesome.com/14edfcae2f.js" crossorigin="anonymous"></script>
   </head>
   <body>
   <?php require_once 'menu.php'; ?>
@@ -55,7 +55,7 @@ function Mask($mask,$str){
   return $mask;
 }
 
-$resultado = $products->post_products_search();
+$resultado = $products->post_products_search( $campo, $ordem );
 if(count($resultado) >= 1){
 ?>
 
@@ -64,9 +64,10 @@ if(count($resultado) >= 1){
         
     <div class="container">
     <div class="row">
-      <div class="col p-2"><b>SKU</b></div>
-      <div class="col p-2"><b>descrição</b></div>
-      <div class="col p-2"><b>Ações</b></div>
+    <div class="col p-2 col-md-2"><form id="sku" method="POST" action="<?php echo URLROOT; ?>/products/search"><input type="hidden" name="search" value="<?php echo $_REQUEST['search']; ?>"><input type="hidden" name="field" value="stock_keeping_unit"><input type="hidden" name="ordem" value="<?php if ($ordem === "desc") { echo "asc"; } else { echo "desc"; } ?>"><b>SKU<a href="javascript:document.getElementById('sku').submit();"><img src="<?php echo URLROOT; ?>/img/ordenar.png" width="16" height="16"></a></form></b></div>
+      <div class="col p-2"><form id="description" method="POST" action="<?php echo URLROOT; ?>/products/search"><input type="hidden" name="search" value="<?php echo $_REQUEST['search']; ?>"><input type="hidden" name="field" value="description"><input type="hidden" name="ordem" value="<?php if ($ordem === "desc") { echo "asc"; } else { echo "desc"; } ?>"><b>Descrição<a href="javascript:document.getElementById('description').submit();"><img src="<?php echo URLROOT; ?>/img/ordenar.png" width="16" height="16"></a></form></b></div>
+      <div class="col p-2 col-md-1"><form id="picture" method="POST" action="<?php echo URLROOT; ?>/products/search"><input type="hidden" name="search" value="<?php echo $_REQUEST['search']; ?>"><input type="hidden" name="field" value="count"><input type="hidden" name="ordem" value="<?php if ($ordem === "desc") { echo "asc"; } else { echo "desc"; } ?>"><b>Fotos<a href="javascript:document.getElementById('picture').submit();"><img src="<?php echo URLROOT; ?>/img/ordenar.png" width="16" height="16"></a></form></b></div>
+      <div class="col p-2 col-md-2"><b>Ações</b></div>
  
 
       <?php
@@ -74,9 +75,10 @@ if(count($resultado) >= 1){
 foreach($resultado as &$value):
     ?>
       <div class="w-100"></div>
-      <div class="col<?php echo !($i % 2) ? " bg-light text-dark p-2" : " p-2"; ?>"><?php echo $value["stock_keeping_unit"]; ?></div>  
-      <div class="col<?php echo !($i % 2) ? " bg-light text-dark p-2" : " p-2"; ?>"><?php echo $value["description"]; ?></div>  
-      <div class="col<?php echo !($i % 2) ? " bg-light text-dark p-2" : " p-2"; ?>"><a class="btn btn-primary btn-xs" href="<?php echo URLROOT; ?>/products/edit/<?php echo $value["stock_keeping_unit"]; ?>">Visualizar</a></div>   
+      <div class="col<?php echo !($i % 2) ? " bg-light text-dark p-2" : " p-2"; ?> col-md-2"><?php echo $value["stock_keeping_unit"]; ?></div>  
+      <div class="col<?php echo !($i % 2) ? " bg-light text-dark p-2" : " p-2"; ?>"><?php echo $value["description"]; ?></div>
+      <div class="col<?php echo !($i % 2) ? " bg-light text-dark p-2" : " p-2"; ?> col-md-1"><?php echo $value["count"]; ?> X <i class="fa-solid fa-image"></i></div>  
+      <div class="col<?php echo !($i % 2) ? " bg-light text-dark p-2" : " p-2"; ?> col-md-2"><a class="btn btn-primary btn-xs" href="<?php echo URLROOT; ?>/products/edit/<?php echo $value["stock_keeping_unit"]; ?>">Visualizar</a></div>   
       
       <?php
       $i++;
