@@ -221,6 +221,25 @@ class Documents extends Connection {
         $result = $this->documents_delete();
         return $result;
     }
+
+    function database_select_all_var( $busca ){
+        $pdo = $this->o_db;
+        $stmt = $pdo->prepare("SELECT * FROM documents
+        WHERE description ILIKE '%$busca%'"); 
+        $stmt->execute(); 
+        $row = $stmt->fetchAll();
+        return $row;
+    }
+
+    function documents_search(){
+        $consulta = $this->database_select_all_var($this->getDescription());
+        return $consulta;
+    }
+
+    function post_documents_search(){
+        $result = $this->documents_search();
+        return $result;
+    }
     
 }
 

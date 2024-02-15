@@ -29,7 +29,7 @@
         transition: border .2s ease-in-out;
     }
     </style>
-    
+    <script src="https://kit.fontawesome.com/14edfcae2f.js" crossorigin="anonymous"></script>
   </head>
   <body>
   <?php require_once 'menu.php'; ?>
@@ -92,8 +92,8 @@ function Mask($mask,$str){
   </div>
   <div class="form-row">
     <div class="form-group col-md-10">
-        <label for="inputSku">URL do Arquivo</label>
-        <input type="text" class="form-control" id="inputSku" name="sku" value="<?php echo "http://" . $_SERVER['SERVER_NAME']; ?><?php echo URLROOT; ?>/files/download/<?php echo $documents->getFileName(); ?>" maxlength="100" readonly>
+        <label for="inputSku">URL do Arquivo <i id="copyButton" class="fa-solid fa-copy"></i></label>
+        <input type="text" class="form-control" id="urlFile" name="sku" value="<?php echo "http://" . $_SERVER['SERVER_NAME']; ?><?php echo URLROOT; ?>/files/download/<?php echo $documents->getFileName(); ?>" maxlength="100" readonly>
     </div>
     <div class="form-group col-md-2">
       <label for="inputSku">Views</label>
@@ -104,7 +104,7 @@ function Mask($mask,$str){
   <div class="form-row">
     <div class="form-group col-md-12">
         <label for="inputSku">URL do Arquivo no CDN</label>
-        <input type="text" class="form-control" id="inputSku" name="sku" value="<?php echo $settings->getBunnyLinkedHostname(); ?>/files/<?php echo $documents->getFileName(); ?>" maxlength="100" readonly>
+        <input type="text" class="form-control" id="urlFileCdn" name="sku" value="<?php echo $settings->getBunnyLinkedHostname(); ?>/files/<?php echo $documents->getFileName(); ?>" maxlength="100" readonly>
     </div>
   </div>
 <?php } ?>
@@ -140,5 +140,15 @@ if ($documents->getCdn() == 1 & $settings->getBunny() == 1) {
 
 <script type="text/javascript" src="<?php echo URLROOT; ?>/js/jquery-3.5.1.slim.min.js"></script>
 <script src="<?php echo URLROOT; ?>/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
+<script>
+$(document).ready(function() {
+  $('#copyButton').click(function() {
+    var copyText = $('#urlFile');
+    copyText.select();
+    document.execCommand('copy');
+  });
+});
+</script>
 </body>
 </html>

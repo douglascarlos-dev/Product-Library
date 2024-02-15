@@ -37,7 +37,9 @@
       </form>
     </div>
     <div class="card-body">
-      ⚠️ O nome do arquivo só deve ter letras, números e underline _.
+      ⚠️ O nome do arquivo só deve ter letras, números e underline _.<br>
+      💡 Para Comprimir o vídeo use o site <a href="https://www.comprimirvideo.com.br" target="_blank">https://www.comprimirvideo.com.br/</a>.<br>
+      Vídeo (máximo de 10 MB) 1920 Pixels sem áudio.
     </div>
     </div>
 </div>
