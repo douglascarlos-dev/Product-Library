@@ -56,7 +56,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="users" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="440" y="40"/>
+	<position x="1200" y="700"/>
 	<column name="id" not-null="true" sequence="public.users_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -211,7 +211,7 @@ END;
 <view name="view_photo_products" layers="0" collapse-mode="2" max-obj-count="1" z-value="0">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="400" y="260"/>
+	<position x="340" y="300"/>
 	<reference>
 		<expression><![CDATA[SELECT photo.id, photo."file_name" , photo."sequence", products.stock_keeping_unit, photo.file_name_thumbnail, photo.size, photo.created, photo.width, photo.height FROM (photo JOIN products ON ((photo.id_products = products.id)));]]></expression>
 		<reftable name="public.products"/>
@@ -233,7 +233,7 @@ END;
 	 dst-table="public.photo"
 	 src-required="false" dst-required="false">
 	<label ref-type="name-label">
-		<position x="-28.0574" y="26.9832"/>
+		<position x="-26.8166" y="-1.2192"/>
 	</label>
 </relationship>
 
@@ -716,7 +716,7 @@ END;]]></definition>
 <table name="category" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="840" y="380"/>
+	<position x="860" y="700"/>
 	<column name="id" not-null="true" sequence="public.category_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -734,7 +734,7 @@ END;]]></definition>
 	</constraint>
 </table>
 
-<table name="settings" layers="0" collapse-mode="2" max-obj-count="10" z-value="0">
+<table name="settings" layers="0" collapse-mode="2" max-obj-count="12" z-value="0">
 	<schema name="public"/>
 	<role name="postgres"/>
 	<position x="460" y="640"/>
@@ -764,6 +764,9 @@ END;]]></definition>
 	</column>
 	<column name="bunny">
 		<type name="boolean" length="0"/>
+	</column>
+	<column name="version">
+		<type name="integer" length="0" dimension="1"/>
 	</column>
 	<constraint name="settings_pk" type="pk-constr" table="public.settings">
 		<columns names="id" ref-type="src-columns"/>
@@ -862,5 +865,93 @@ RETURN id_retorno;
 END;
 ]]></definition>
 </function>
+
+<sequence name="banner_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="2147483647" cache="1">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<table name="banner" layers="0" collapse-mode="2" max-obj-count="6" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1180" y="80"/>
+	<column name="id" not-null="true" sequence="public.banner_id_seq">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="description">
+		<type name="character varying" length="100"/>
+	</column>
+	<column name="code">
+		<type name="text" length="0"/>
+	</column>
+	<column name="created" default-value="NOW()">
+		<type name="timestamptz" length="0"/>
+	</column>
+	<column name="updated">
+		<type name="timestamptz" length="0"/>
+	</column>
+	<constraint name="banner_pk" type="pk-constr" table="public.banner">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="banner_box" layers="0" collapse-mode="2" max-obj-count="14" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1140" y="360"/>
+	<column name="id" not-null="true" sequence="public.photo_id_seq">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="file_name" not-null="true">
+		<type name="character varying" length="100"/>
+	</column>
+	<column name="file_name_thumbnail">
+		<type name="character varying" length="100"/>
+	</column>
+	<column name="sequence">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="device">
+		<type name="character varying" length="10"/>
+	</column>
+	<column name="language">
+		<type name="character varying" length="10"/>
+	</column>
+	<column name="width">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="height">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="size">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="created" default-value="NOW()">
+		<type name="timestamptz" length="0"/>
+	</column>
+	<column name="updated">
+		<type name="timestamptz" length="0"/>
+	</column>
+	<constraint name="banner_box_pk" type="pk-constr" table="public.banner_box">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="banner_box_unique" type="uq-constr" table="public.banner_box">
+		<columns names="file_name" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<sequence name="banner_box_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="2147483647" cache="1">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<relationship name="banner_has_many_banner_box" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#69dcd5"
+	 src-table="public.banner"
+	 dst-table="public.banner_box"
+	 src-required="false" dst-required="false"/>
 
 </dbmodel>
