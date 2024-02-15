@@ -153,7 +153,7 @@ class DocumentsController {
 
     function formatFileName($file_name){
         // Substitui espaços, traços e caracteres especiais por underscores
-        $file_name = preg_replace('/[ -&()~%]/', '_', $file_name);
+        $file_name = preg_replace('/[ --&()~%]/', '_', $file_name);
         
         // Remove acentos
         $file_name = preg_replace(
@@ -174,6 +174,13 @@ class DocumentsController {
         $documents = $documents->documents_list();
         $documents->post_documents_delete();
         DocumentsController::visualizar();
+    }
+
+    public function search() {
+        $documents = new Documents();
+
+        $documents->setDescription($_REQUEST['search']);
+        require_once 'view/documents_search.php';
     }
 
 }
