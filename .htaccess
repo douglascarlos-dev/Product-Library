@@ -21,5 +21,4 @@ ExpiresByType image/gif "access 1 hour"
 ExpiresByType image/png "access 1 hour"
 ExpiresByType application/pdf "access 1 hour"
 ExpiresByType video/mp4 "access 1 hour"
-ExpiresDefault "access 1 month"
 </IfModule>

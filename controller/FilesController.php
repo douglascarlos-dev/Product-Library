@@ -24,8 +24,8 @@ class FilesController {
             header("Content-Type: $file_type");
             header('Content-Length: ' . filesize("files/$arquivo"));
             header('Content-Disposition: filename=' . $arquivo);
-             // calc an offset of 24 hours
-            $offset = 3600 * 24;
+             // calc an offset of 01 hours
+            $offset = 3600 * 1;
             // calc the string in GMT not localtime and add the offset
             $expire = "Expires: " . gmdate("D, d M Y H:i:s", time() + $offset) . " GMT";
             //output the HTTP header
