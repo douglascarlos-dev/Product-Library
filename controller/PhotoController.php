@@ -110,6 +110,8 @@ class PhotoController {
                             $photo->setHeight($height);
                             $photo->post_photo_save();
                             //echo " " . $file_name . " " . $file_size . " " . $file_type . " " . $file_name_2 . " " . $filename . " " . $file_name_3;
+                        } else {
+                            print_r($errors);
                         }
                     }
                 }

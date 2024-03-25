@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
  Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.4" use-changelog="false" last-position="0,0" last-zoom="1" max-obj-count="15"
+<dbmodel pgmodeler-ver="0.9.4" use-changelog="false" last-position="566,0" last-zoom="1" max-obj-count="18"
 	 default-owner="postgres"
 	 layers="Default layer"
 	 active-layers="0"
@@ -871,12 +871,15 @@ END;
 	<role name="postgres"/>
 </sequence>
 
-<table name="banner" layers="0" collapse-mode="2" max-obj-count="6" z-value="0">
+<table name="banner" layers="0" collapse-mode="2" max-obj-count="7" z-value="0">
 	<schema name="public"/>
 	<role name="postgres"/>
 	<position x="1180" y="80"/>
 	<column name="id" not-null="true" sequence="public.banner_id_seq">
 		<type name="integer" length="0"/>
+	</column>
+	<column name="banner_name" not-null="true">
+		<type name="character varying" length="100"/>
 	</column>
 	<column name="description">
 		<type name="character varying" length="100"/>
@@ -893,13 +896,21 @@ END;
 	<constraint name="banner_pk" type="pk-constr" table="public.banner">
 		<columns names="id" ref-type="src-columns"/>
 	</constraint>
+	<constraint name="banner_unique" type="uq-constr" table="public.banner">
+		<columns names="banner_name" ref-type="src-columns"/>
+	</constraint>
 </table>
+
+<sequence name="banner_box_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="2147483647" cache="1">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
 
 <table name="banner_box" layers="0" collapse-mode="2" max-obj-count="14" z-value="0">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1140" y="360"/>
-	<column name="id" not-null="true" sequence="public.photo_id_seq">
+	<position x="1160" y="360"/>
+	<column name="id" not-null="true" sequence="public.banner_box_id_seq">
 		<type name="integer" length="0"/>
 	</column>
 	<column name="file_name" not-null="true">
@@ -938,12 +949,15 @@ END;
 	<constraint name="banner_box_unique" type="uq-constr" table="public.banner_box">
 		<columns names="file_name" ref-type="src-columns"/>
 	</constraint>
-</table>
 
-<sequence name="banner_box_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="2147483647" cache="1">
-	<schema name="public"/>
-	<role name="postgres"/>
-</sequence>
+	<customidxs object-type="column">
+		<object name="id_banner" index="11"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="banner_fk" index="2"/>
+	</customidxs>
+</table>
 
 <relationship name="banner_has_many_banner_box" type="rel1n" layers="0"
 	 src-col-pattern="{sc}_{st}"
@@ -953,5 +967,116 @@ END;
 	 src-table="public.banner"
 	 dst-table="public.banner_box"
 	 src-required="false" dst-required="false"/>
+
+<function name="banner_insert_function"
+		window-func="false"
+		returns-setof="false"
+		behavior-type="CALLED ON NULL INPUT"
+		function-type="VOLATILE"
+		security-type="SECURITY INVOKER"
+		parallel-type="PARALLEL UNSAFE"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<language name="plpgsql"/>
+	<return-type>
+	<type name="integer" length="0"/>
+	</return-type>
+	<parameter name="name_">
+		<type name="character varying" length="0"/>
+	</parameter>
+	<parameter name="description_">
+		<type name="character varying" length="0"/>
+	</parameter>
+	<definition><![CDATA[DECLARE id_retorno integer;
+BEGIN
+
+INSERT INTO banner(banner_name, description) VALUES (name_, description_)
+ON CONFLICT (banner_name) DO NOTHING;
+
+SELECT id INTO id_retorno FROM banner WHERE banner.banner_name=name_;
+
+RETURN id_retorno;
+
+END;
+]]></definition>
+</function>
+
+<view name="view_banner" layers="0" collapse-mode="2" max-obj-count="1" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="860" y="420"/>
+	<reference>
+		<expression><![CDATA[SELECT banner_box.id, banner_box."file_name" , banner_box."sequence", banner.banner_name, banner_box.file_name_thumbnail, banner_box.size, banner_box.created, banner_box.width, banner_box.height, banner_box.device FROM (banner_box JOIN banner ON ((banner_box.id_banner = banner.id)));]]></expression>
+		<reftable name="public.banner"/>
+		<reftable name="public.banner_box"/>
+	</reference>
+</view>
+
+<relationship name="rel_view_photo_products_cp_banner" type="reltv" layers="0"
+	 src-table="public.view_banner"
+	 dst-table="public.banner"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_view_photo_products_cp_banner_box" type="reltv" layers="0"
+	 src-table="public.view_banner"
+	 dst-table="public.banner_box"
+	 src-required="false" dst-required="false"/>
+
+<function name="banner_file_insert_function"
+		window-func="false"
+		returns-setof="false"
+		behavior-type="CALLED ON NULL INPUT"
+		function-type="VOLATILE"
+		security-type="SECURITY INVOKER"
+		parallel-type="PARALLEL UNSAFE"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<language name="plpgsql"/>
+	<return-type>
+	<type name="integer" length="0"/>
+	</return-type>
+	<parameter name="file_name_">
+		<type name="character varying" length="0"/>
+	</parameter>
+	<parameter name="sequence_">
+		<type name="integer" length="0"/>
+	</parameter>
+	<parameter name="width_">
+		<type name="integer" length="0"/>
+	</parameter>
+	<parameter name="height_">
+		<type name="integer" length="0"/>
+	</parameter>
+	<parameter name="size_">
+		<type name="integer" length="0"/>
+	</parameter>
+	<parameter name="bannername_">
+		<type name="character varying" length="0"/>
+	</parameter>
+	<parameter name="file_name_thumbnail_">
+		<type name="character varying" length="0"/>
+	</parameter>
+	<parameter name="device_">
+		<type name="character varying" length="0"/>
+	</parameter>
+	<parameter name="language_">
+		<type name="character varying" length="0"/>
+	</parameter>
+	<definition><![CDATA[DECLARE id_banner integer;
+BEGIN
+
+SELECT id INTO id_banner FROM banner WHERE banner.banner_name=bannername_;
+
+INSERT INTO banner_box(file_name, sequence, device, language, id_banner, file_name_thumbnail, size, width, height) VALUES (file_name_, sequence_, device_, language_, id_banner, file_name_thumbnail_, size_, width_, height_);
+
+RETURN id_banner;
+
+END;
+]]></definition>
+</function>
 
 </dbmodel>
