@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
  Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.4" use-changelog="false" last-position="566,0" last-zoom="1" max-obj-count="18"
+<dbmodel pgmodeler-ver="0.9.4" use-changelog="false" last-position="404,0" last-zoom="1" max-obj-count="20"
 	 default-owner="postgres"
 	 layers="Default layer"
 	 active-layers="0"
@@ -966,7 +966,12 @@ END;
 	 custom-color="#69dcd5"
 	 src-table="public.banner"
 	 dst-table="public.banner_box"
-	 src-required="false" dst-required="false"/>
+	 src-required="false" dst-required="false"
+	del-action="CASCADE">
+	<label ref-type="name-label">
+		<position x="0" y="0"/>
+	</label>
+</relationship>
 
 <function name="banner_insert_function"
 		window-func="false"
@@ -1074,6 +1079,67 @@ SELECT id INTO id_banner FROM banner WHERE banner.banner_name=bannername_;
 INSERT INTO banner_box(file_name, sequence, device, language, id_banner, file_name_thumbnail, size, width, height) VALUES (file_name_, sequence_, device_, language_, id_banner, file_name_thumbnail_, size_, width_, height_);
 
 RETURN id_banner;
+
+END;
+]]></definition>
+</function>
+
+<function name="banner_remove_function"
+		window-func="false"
+		returns-setof="false"
+		behavior-type="CALLED ON NULL INPUT"
+		function-type="VOLATILE"
+		security-type="SECURITY INVOKER"
+		parallel-type="PARALLEL UNSAFE"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<language name="plpgsql"/>
+	<return-type>
+	<type name="character varying" length="0"/>
+	</return-type>
+	<parameter name="banner_name_">
+		<type name="character varying" length="0"/>
+	</parameter>
+	<definition><![CDATA[BEGIN
+
+DELETE FROM banner WHERE banner.banner_name = banner_name_;
+
+RETURN banner_name_;
+
+END;]]></definition>
+</function>
+
+<function name="banner_update_function"
+		window-func="false"
+		returns-setof="false"
+		behavior-type="CALLED ON NULL INPUT"
+		function-type="VOLATILE"
+		security-type="SECURITY INVOKER"
+		parallel-type="PARALLEL UNSAFE"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<language name="plpgsql"/>
+	<return-type>
+	<type name="integer" length="0"/>
+	</return-type>
+	<parameter name="banner_name_">
+		<type name="character varying" length="0"/>
+	</parameter>
+	<parameter name="description_">
+		<type name="character varying" length="0"/>
+	</parameter>
+	<parameter name="updated_">
+		<type name="timestamptz" length="0"/>
+	</parameter>
+	<definition><![CDATA[BEGIN
+
+UPDATE banner SET description = description_, updated = updated_ WHERE banner_name = banner_name_;
+
+RETURN 1;
 
 END;
 ]]></definition>

@@ -36,17 +36,17 @@ class BannerController {
         require_once 'view/banner_teste.php';
     }
 
-    public function update( $id ) {
+    public function update( $name ) {
         $banner = new Banner();
-        $banner->setId($id);
+        $banner->setName($name);
         $banner->setDescription($_REQUEST['descricao']);
         $banner->post_banner_update();
-        BannerController::edit($banner->getId());
+        BannerController::edit($banner->getName());
     }
 
-    public function delete( $id ){
+    public function delete( $name ){
         $banner = new Banner();
-        $banner->setId($id);
+        $banner->setName($name);
         $banner = $banner->banner_list();
         $banner->post_banner_delete();
         BannerController::visualizar();
